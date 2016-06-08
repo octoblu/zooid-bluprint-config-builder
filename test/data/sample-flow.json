@@ -1,0 +1,87 @@
+{
+  "flowId": "abc91263-991e-43a4-b268-ead72db92165",
+  "name": "Flow abc91263",
+  "description": null,
+  "hash": "f29fab9a",
+  "links": [
+    {
+      "from": "cc511710-189c-11e6-afe0-75a40694b634",
+      "fromPort": 0,
+      "to": "f7828940-2db0-11e6-a1f8-3597b52ad7d7",
+      "toPort": 0
+    },
+    {
+      "from": "f7828940-2db0-11e6-a1f8-3597b52ad7d7",
+      "fromPort": 0,
+      "to": "cec5c090-189c-11e6-afe0-75a40694b634",
+      "toPort": 0
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Trigger",
+      "class": "trigger",
+      "category": "operation",
+      "uuid": "37f0a74a-2f17-11e4-9617-a6c5e4d22fb7",
+      "type": "operation:trigger",
+      "nanocyte": {
+        "name": "nanocyte-node-trigger"
+      },
+      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
+      "id": "cc511710-189c-11e6-afe0-75a40694b634",
+      "payloadType": "date",
+      "once": false,
+      "inputLocations": [],
+      "outputLocations": [],
+      "x": -153.84101104736328,
+      "y": 209.22947692871094,
+      "staticMessage": {},
+      "needsConfiguration": false,
+      "needsSetup": false
+    },
+    {
+      "name": "Debug",
+      "class": "debug",
+      "category": "operation",
+      "uuid": "37f0b88e-2f17-11e4-9617-a6c5e4d22fb7",
+      "type": "operation:debug",
+      "color": "#87a980",
+      "align": "right",
+      "nanocyte": {
+        "name": "nanocyte-node-debug"
+      },
+      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
+      "id": "cec5c090-189c-11e6-afe0-75a40694b634",
+      "active": true,
+      "debug": true,
+      "complete": false,
+      "inputLocations": [],
+      "outputLocations": [],
+      "x": 414.9035949707031,
+      "y": 227.5318603515625,
+      "staticMessage": {},
+      "needsConfiguration": false,
+      "needsSetup": false
+    },
+    {
+      "name": "Greater Than or Equal",
+      "class": "greater-than-equal",
+      "category": "operation",
+      "uuid": "c36c413c-c4df-4c5b-9861-fcd08bc81503",
+      "type": "operation:greater-than-equal",
+      "nanocyte": {
+        "name": "nanocyte-node-greater-than-equal"
+      },
+      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
+      "id": "f7828940-2db0-11e6-a1f8-3597b52ad7d7",
+      "value": 0,
+      "staticMessage": {},
+      "inputLocations": [],
+      "outputLocations": [],
+      "x": 143.2560272216797,
+      "y": 219.67428588867188,
+      "needsConfiguration": false,
+      "needsSetup": false
+    }
+  ]
+}

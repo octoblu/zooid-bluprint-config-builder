@@ -1,0 +1,5 @@
+--require babel-register
+--require ignore-styles
+test/.setup.js
+src/**/*.spec.js
+--recursive
