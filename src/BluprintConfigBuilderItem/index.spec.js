@@ -7,6 +7,7 @@ import { mount, shallow } from 'enzyme';
 import ReactJsonSchemaForm from 'react-jsonschema-form'
 
 import BluprintConfigBuilderItem from './'
+import NodeMapField from '../NodeMapField'
 
 import sampleFlow from '../../test/data/sample-flow.json'
 
@@ -59,8 +60,10 @@ describe('<BluprintConfigBuilderItem />', () => {
       )
     })
 
-    it('should render the all the properties contained in the schemaRegistry', () => {
-      expect(sut.find('li[name="payload"]')).to.contain.text('payload')
+    it('should render NodeMapFields for each property', () => {
+      expect(sut).to.contain(<NodeMapField nodeId={node.id} property="alias" />)
+      expect(sut).to.contain(<NodeMapField nodeId={node.id} property="payload" />)
+      expect(sut).to.contain(<NodeMapField nodeId={node.id} property="payloadType" />)
     })
 
   })

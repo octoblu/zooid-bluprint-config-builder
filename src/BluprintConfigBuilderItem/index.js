@@ -2,7 +2,9 @@ import _ from 'lodash'
 import classNames from 'classnames'
 import ReactJsonSchemaForm from 'react-jsonschema-form'
 import React, { PropTypes } from 'react'
-import {instantiate} from 'json-schema-instantiator'
+import { instantiate } from 'json-schema-instantiator'
+
+import NodeMapField from '../NodeMapField'
 
 const propTypes = {
   node: PropTypes.object,
@@ -15,16 +17,14 @@ const BluprintConfigBuilderItem = ({node, nodeSchema}) => {
 
   const nodeModel = instantiate(nodeSchema, {requiredOptionsOnly: false})
   const nodeProps = _.map(_.keys(nodeModel), (property, index) => {
-    return (
-      <li name={property}>{property} <input type="checkbox" /></li>
-    )
+    return <NodeMapField nodeId={node.id} property={property}/>
   })
 
   return (
-    <div>
-      <header>Node: {nodeSchema.title}</header>
-      <ul>{nodeProps}</ul>
-    </div>
+    <form>
+      <legend>Node: {nodeSchema.title}</legend>
+      {nodeProps}
+    </form>
   )
 }
 
