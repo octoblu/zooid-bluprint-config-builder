@@ -8,5 +8,12 @@ import schemaRegistry from '../test/data/schema-registry.json'
 
 storiesOf('BluprintConfigBuilder', module)
   .add('Basic', () => (
-    <BluprintConfigBuilder flow={sampleFlow} nodeSchemas={schemaRegistry}/>
-  ));
+    <BluprintConfigBuilder
+      flow={sampleFlow}
+      nodeSchemas={schemaRegistry}
+      onUpdate={(result) => {
+        console.log('Updated', result);
+      }}
+    />
+  ))
+  ;

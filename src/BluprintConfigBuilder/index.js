@@ -1,27 +1,50 @@
-import _ from 'lodash'
-import classNames from 'classnames'
-import React, { PropTypes } from 'react'
+import _ from 'lodash';
+import React, { PropTypes } from 'react';
 
-import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem'
+import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem';
 
-const proptypes = {
+const propTypes = {
   flow: PropTypes.object,
-  nodeSchemas: PropTypes.array
+  nodeSchemas: PropTypes.array,
+  onUpdate: PropTypes.func,
+};
+
+class BluprintConfigBuilder extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { configList: [] }
+    this.handleUpdate = this.handleUpdate.bind(this);
+  }
+
+  handleUpdate(config) {
+    if (_.find(this.state.configList, config)) return
+
+    this.setState({ configList: [config, ...this.state.configList] }, () => {
+      this.props.onUpdate(this.state.configList)
+    })
+  }
+
+  render() {
+    const { flow, nodeSchemas } = this.props;
+
+    if (_.isEmpty(flow)) return null;
+    if (_.isEmpty(flow.nodes)) return null;
+    if (_.isEmpty(nodeSchemas)) return null;
+
+    const items = _.map(flow.nodes, (node) => (
+      <BluprintConfigBuilderItem
+        node={node}
+        nodeSchema={nodeSchemas[node.class]}
+        onUpdate={this.handleUpdate}
+        key={node.id}
+      />
+    ));
+
+    return <div>{items}</div>
+  }
 }
 
-const BluprintConfigBuilder = ({flow, nodeSchemas}) => {
-  if (_.isEmpty(flow)) return null
-  if (_.isEmpty(flow.nodes)) return null
-  if (_.isEmpty(nodeSchemas)) return null
+BluprintConfigBuilder.propTypes = propTypes;
 
-  const items = _.map(flow.nodes, (node) => {
-    const nodeSchema = nodeSchemas[node.class]
-    return <BluprintConfigBuilderItem node={node} nodeSchema={nodeSchema} key={node.id} />
-  })
-
-  return <div>{items}</div>
-}
-
-BluprintConfigBuilder.proptypes = proptypes
-
-export default BluprintConfigBuilder
+export default BluprintConfigBuilder;

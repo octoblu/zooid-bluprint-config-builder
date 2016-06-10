@@ -1,56 +1,89 @@
-import _ from 'lodash'
-import classNames from 'classnames'
-import React, { PropTypes } from 'react'
+import _ from 'lodash';
+import React, { PropTypes } from 'react';
 
 const proptypes = {
   nodeId: PropTypes.string,
-  property: PropTypes.string
-}
+  nodeProperty: PropTypes.string,
+  onUpdate: PropTypes.func,
+};
+
+const defaultProps = {
+  onUpdate: _.noop,
+};
 
 class NodeMapField extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state  = {
-      configure: false
-    }
+    this.state = {
+      configName: '',
+      showConfigProperty: false,
+    };
 
-    this.updateConfigureState = this.updateConfigureState.bind(this)
+    this.handleBlur = this.handleBlur.bind(this);
+    this.updateConfigureState = this.updateConfigureState.bind(this);
+    this.updateConfigNameState = this.updateConfigNameState.bind(this);
   }
 
+  handleBlur() {
+    const configureProperty = this.state.configName;
+
+    if (_.isEmpty(configureProperty)) return
+
+    const { nodeId, nodeProperty, onUpdate } = this.props;
+    onUpdate({ nodeId, nodeProperty, configureProperty });
+  }
 
   updateConfigureState() {
     this.setState({
-      configure: !this.state.configure
-    })
+      showConfigProperty: !this.state.showConfigProperty,
+    });
+  }
+
+  updateConfigNameState({ target }) {
+    this.setState({
+      configName: target.value,
+    });
   }
 
   render() {
-    const { nodeId, property } = this.props;
+    const { nodeId, nodeProperty } = this.props
 
-    if (_.isEmpty(nodeId)) return null
-    if (_.isEmpty(property)) return null
+    if (_.isEmpty(nodeId)) return null;
+    if (_.isEmpty(nodeProperty)) return null;
 
-    const { configure } = this.state
+    const { showConfigProperty } = this.state;
+
     let configureInput = null;
-
-    if (configure) configureInput = <input type="text" required />
+    if (showConfigProperty) {
+      configureInput = (
+        <input
+          type="text"
+          name="configProperty"
+          value={this.state.configName}
+          onChange={this.updateConfigNameState}
+          onBlur={this.handleBlur}
+          required
+        />
+      );
+    }
 
     return (
-      <div name={property}>
-        <span>{property}</span>
+      <div name={nodeId}>
+        <span>{nodeProperty}</span>
         <input
           type="checkbox"
-          name="configure"
-          checked={configure}
+          name={`${nodeId}.${nodeProperty}`}
+          checked={showConfigProperty}
           onClick={this.updateConfigureState}
         />
         {configureInput}
       </div>
-    )
+    );
   }
 }
 
-NodeMapField.proptypes = proptypes
+NodeMapField.proptypes = proptypes;
+NodeMapField.defaultProps = defaultProps;
 
-export default NodeMapField
+export default NodeMapField;
