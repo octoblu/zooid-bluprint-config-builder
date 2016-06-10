@@ -20,12 +20,12 @@ class NodeMapField extends React.Component {
       showConfigProperty: false,
     };
 
-    this.handleBlur = this.handleBlur.bind(this);
+    this.componentDidUpdate = this.componentDidUpdate.bind(this);
     this.updateConfigureState = this.updateConfigureState.bind(this);
     this.updateConfigNameState = this.updateConfigNameState.bind(this);
   }
 
-  handleBlur() {
+  componentDidUpdate() {
     const configureProperty = this.state.configName;
 
     if (_.isEmpty(configureProperty)) return
@@ -62,7 +62,6 @@ class NodeMapField extends React.Component {
           name="configProperty"
           value={this.state.configName}
           onChange={this.updateConfigNameState}
-          onBlur={this.handleBlur}
           required
         />
       );
