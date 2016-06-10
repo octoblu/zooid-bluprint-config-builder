@@ -17,12 +17,19 @@ class BluprintConfigBuilder extends React.Component {
     this.handleUpdate = this.handleUpdate.bind(this);
   }
 
-  handleUpdate(config) {
-    if (_.find(this.state.configList, config)) return
+  handleUpdate(updatedConfig) {
+    const foundConfig = _.find(this.state.configList,
+      { nodeId: updatedConfig.nodeId, nodeProperty: updatedConfig.nodeProperty })
 
-    this.setState({ configList: [config, ...this.state.configList] }, () => {
-      this.props.onUpdate(this.state.configList)
-    })
+    if (!foundConfig) {
+      this.setState({ configList: [updatedConfig, ...this.state.configList] })
+      return
+    }
+
+    const configIndex = _.findIndex(this.state.configList,
+       { nodeId: updatedConfig.nodeId, nodeProperty: updatedConfig.nodeProperty })
+
+    this.state.configList[configIndex] = updatedConfig
   }
 
   render() {
