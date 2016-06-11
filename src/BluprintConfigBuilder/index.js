@@ -5,7 +5,7 @@ import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem';
 
 const propTypes = {
   flow: PropTypes.object,
-  nodeSchemas: PropTypes.array,
+  nodeSchemas: PropTypes.object,
   onUpdate: PropTypes.func,
 };
 
