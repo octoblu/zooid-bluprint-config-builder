@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import React, { PropTypes } from 'react';
 
-const proptypes = {
+const propTypes = {
   nodeId: PropTypes.string,
+  nodePropertySchema: PropTypes.object,
   nodeProperty: PropTypes.string,
   onUpdate: PropTypes.func,
 };
@@ -30,8 +31,15 @@ class NodeMapField extends React.Component {
 
     if (_.isEmpty(configureProperty)) return
 
-    const { nodeId, nodeProperty, onUpdate } = this.props;
-    onUpdate({ nodeId, nodeProperty, configureProperty });
+    const { nodeId, nodePropertySchema, nodeProperty, onUpdate } = this.props;
+    const { type } = nodePropertySchema
+
+    onUpdate({
+      configureProperty,
+      nodeId,
+      nodeProperty,
+      type,
+    });
   }
 
   updateConfigureState() {
@@ -47,9 +55,10 @@ class NodeMapField extends React.Component {
   }
 
   render() {
-    const { nodeId, nodeProperty } = this.props
+    const { nodeId, nodePropertySchema, nodeProperty } = this.props
 
     if (_.isEmpty(nodeId)) return null;
+    if (_.isEmpty(nodePropertySchema)) return null;
     if (_.isEmpty(nodeProperty)) return null;
 
     const { showConfigProperty } = this.state;
@@ -69,7 +78,7 @@ class NodeMapField extends React.Component {
 
     return (
       <div name={nodeId}>
-        <span>{nodeProperty}</span>
+        <span>{nodePropertySchema.title}</span>
         <input
           type="checkbox"
           name={`${nodeId}.${nodeProperty}`}
@@ -82,7 +91,7 @@ class NodeMapField extends React.Component {
   }
 }
 
-NodeMapField.proptypes = proptypes;
+NodeMapField.propTypes = propTypes;
 NodeMapField.defaultProps = defaultProps;
 
 export default NodeMapField;

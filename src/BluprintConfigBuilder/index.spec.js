@@ -3,6 +3,7 @@ import chai, { expect } from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import React from 'react';
 import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import { mount, shallow } from 'enzyme';
 
 import BluprintConfigBuilder from './';
@@ -12,6 +13,7 @@ import sampleFlow from '../../test/data/sample-flow.json';
 import schemaRegistry from '../../test/data/schema-registry.json';
 
 chai.use(chaiEnzyme());
+chai.use(sinonChai);
 
 describe('<BluprintConfigBuilder />', () => {
   it('should render nothing when flow prop is not passed', () => {
@@ -48,6 +50,52 @@ describe('<BluprintConfigBuilder />', () => {
           />
         )
       });
+    })
+  })
+
+  describe('when handleUpdate() is called with a config ', () => {
+    let config
+    let handleUpdate
+    let sut
+
+    beforeEach(() => {
+      config = {
+        configureProperty: 'asd',
+        nodeId: 'ff1123a0',
+        nodeProperty: 'key',
+        type: 'string',
+      }
+
+      handleUpdate = sinon.stub()
+      sut = mount(
+        <BluprintConfigBuilder
+          flow={sampleFlow}
+          nodeSchemas={schemaRegistry}
+          onUpdate={handleUpdate}
+        />
+      )
+      sut.instance().handleUpdate(config)
+    })
+
+    it('should call onUpdate', () => {
+      expect(handleUpdate).to.have.been.calledWith([config])
+    })
+
+    it('should add config to configList state if it does not exist', () => {
+      expect(sut.state('configList')).to.deep.equal([config])
+    })
+
+    it('should not allow duplicate config with identical nodeId & nodeProperty in configList State', () => {
+      expect(sut.state('configList').length).to.equal(1)
+      sut.instance().handleUpdate({ ...config, configureProperty: 'moistness' })
+
+      expect(sut.state('configList').length).to.equal(1)
+      expect(sut.state('configList')).to.deep.equal([{
+        configureProperty: 'moistness',
+        nodeId: 'ff1123a0',
+        nodeProperty: 'key',
+        type: 'string',
+      }])
     })
   })
 })

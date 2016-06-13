@@ -12,20 +12,38 @@ chai.use(sinonChai);
 
 describe('<NodeMapField  />', () => {
   it('should render nothing when nodeId prop is empty', () => {
-    const sut = shallow(<NodeMapField nodeProperty="fancy" />);
+    const sut = shallow(<NodeMapField nodePropertySchema="fancy" />);
     expect(sut).to.be.empty;
   });
 
-  it('should render nothing when nodeProperty prop is empty', () => {
+  it('should render nothing when nodePropertySchema prop is empty', () => {
     const sut = shallow(<NodeMapField nodeId="cool-gang" />);
     expect(sut).to.be.empty;
   });
 
-  describe('when nodeId and propert props are valid', () => {
+
+  it('should render nothing when nodeProperty prop is empty', () => {
+    const sut = shallow(<NodeMapField nodeId="cool-gang" nodePropertySchema="fancy" />);
+    expect(sut).to.be.empty;
+  });
+
+  describe('when nodeId, nodePropertySchema & nodeProperty props are passed in', () => {
     let sut;
 
     beforeEach(() => {
-      sut = shallow(<NodeMapField nodeId="Carter-IV" nodeProperty="cash-money" />);
+      const nodeProperty = 'alias'
+      const nodePropertySchema = {
+        type: 'string',
+        title: 'Alias',
+      }
+
+      sut = shallow(
+        <NodeMapField
+          nodeId="Carter-IV"
+          nodePropertySchema={nodePropertySchema}
+          nodeProperty={nodeProperty}
+        />
+      );
     });
 
     it('should default showConfigProperty state to false', () => {
@@ -36,8 +54,8 @@ describe('<NodeMapField  />', () => {
       expect(sut).to.have.state('configName').equal('');
     });
 
-    it('should render nodeProperty label', () => {
-      expect(sut).to.contain('cash-money');
+    it('should render nodePropertySchema label', () => {
+      expect(sut).to.contain('Alias');
     });
 
     it('should render a checkbox', () => {
@@ -45,7 +63,7 @@ describe('<NodeMapField  />', () => {
     });
 
     it('should set showConfigProperty state to true when checkbox is checked', () => {
-      let checkbox = sut.find("input[type='checkbox']");
+      const checkbox = sut.find("input[type='checkbox']");
       checkbox.simulate('click');
       expect(sut).to.have.state('showConfigProperty').equal(true);
     });
@@ -59,40 +77,68 @@ describe('<NodeMapField  />', () => {
   describe('when configName is empty', () => {
     let sut;
     let nodeId = 'Nintendo-64';
-    let nodeProperty = 'Playstation 1';
+    let nodePropertySchema = {
+      type: 'string',
+      title: 'Payload',
+    }
+    let nodeProperty = 'payload'
     let onUpdateHandler = sinon.stub();
 
     beforeEach(() => {
-      sut = mount(<NodeMapField nodeId={nodeId} nodeProperty={nodeProperty} onUpdate={onUpdateHandler} />);
+      sut = mount(
+        <NodeMapField
+          nodeId={nodeId}
+          nodePropertySchema={nodePropertySchema}
+          nodeProperty={nodeProperty}
+          onUpdate={onUpdateHandler}
+        />
+      )
       sut.setState({
         showConfigProperty: true,
         configName: '',
       });
     });
 
-    it('should not call onUpdate on blur', () => {
-      sut.find('input[type="text"]').simulate('blur');
+    it('should not call onUpdate onChange', () => {
+      sut.find('input[type="text"]').simulate('change');
       expect(onUpdateHandler).to.not.have.been.called;
     });
   });
-  
+
   describe('when configName is set', () => {
     let sut;
     let nodeId = 'Nintendo-64';
-    let nodeProperty = 'Playstation 1';
+    let nodePropertySchema = {
+      type: 'string',
+      title: 'Payload Type',
+    };
+    let nodeProperty = 'payloadType'
     let onUpdateHandler = sinon.stub();
 
     beforeEach(() => {
-      sut = mount(<NodeMapField nodeId={nodeId} nodeProperty={nodeProperty} onUpdate={onUpdateHandler} />);
+      sut = mount(
+        <NodeMapField
+          nodeId={nodeId}
+          nodePropertySchema={nodePropertySchema}
+          nodeProperty={nodeProperty}
+          onUpdate={onUpdateHandler}
+        />
+      )
+
       sut.setState({
         showConfigProperty: true,
         configName: 'myPayload',
       });
     });
 
-    it('should call onUpdate on blur', () => {
-      sut.find('input[type="text"]').simulate('blur');
-      expect(onUpdateHandler).to.have.been.calledWith({ nodeId, nodeProperty, configureProperty: 'myPayload' });
+    it('should call onUpdate onChange', () => {
+      sut.find('input[type="text"]').simulate('change');
+      expect(onUpdateHandler).to.have.been.calledWith({
+        configureProperty: 'myPayload',
+        nodeId,
+        nodeProperty,
+        type: 'string',
+      });
     });
   });
 });

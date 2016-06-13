@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React, { PropTypes } from 'react';
-import { instantiate } from 'json-schema-instantiator';
 
 import NodeMapField from '../NodeMapField';
 
@@ -14,12 +13,13 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate }) => {
   if (_.isEmpty(node)) return null;
   if (_.isEmpty(nodeSchema)) return null;
 
-  const nodeModel = instantiate(nodeSchema, { requiredOptionsOnly: false });
+  const nodeProperties = nodeSchema.properties
 
-  const nodeProps = _.map(_.keys(nodeModel), (property, index) => (
+  const nodeProps = _.map(_.keys(nodeProperties), (property, index) => (
     <NodeMapField
       nodeId={node.id}
       nodeProperty={property}
+      nodePropertySchema={nodeProperties[property]}
       onUpdate={onUpdate}
       key={index}
     />
