@@ -5,7 +5,7 @@ import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem';
 
 const propTypes = {
   flow: PropTypes.object,
-  nodeSchemaMap: PropTypes.object,
+  nodeSchemaMap: PropTypes.array,
   onUpdate: PropTypes.func,
 };
 
@@ -45,14 +45,25 @@ class BluprintConfigBuilder extends React.Component {
     if (_.isEmpty(flow.nodes)) return null;
     if (_.isEmpty(nodeSchemaMap)) return null;
 
-    const items = _.map(flow.nodes, (node) => (
-      <BluprintConfigBuilderItem
-        node={node}
-        nodeSchema={nodeSchemaMap[node.uuid]}
-        onUpdate={this.handleUpdate}
-        key={node.id}
-      />
-    ));
+    const items = _.map(flow.nodes, (node) => {
+      const nodeSchemaMapItem = _.find(nodeSchemaMap, { uuid: node.uuid })
+      console.log('nodeSchemaMapItem', nodeSchemaMapItem);
+      let nodeSchema
+      if (_.isEmpty(nodeSchemaMapItem)) return null
+      if(nodeSchemaMapItem.category === 'device'){
+        nodeSchema = nodeSchemaMapItem.schemas.message
+      } else {
+        nodeSchema = nodeSchemaMapItem.schema
+      }
+      return (
+        <BluprintConfigBuilderItem
+          node={node}
+          nodeSchema={nodeSchema}
+          onUpdate={this.handleUpdate}
+          key={node.id}
+        />
+      )
+    });
 
     return <div>{items}</div>
   }

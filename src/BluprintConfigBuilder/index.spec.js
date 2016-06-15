@@ -51,10 +51,18 @@ describe('<BluprintConfigBuilder />', () => {
         />);
 
       _.forEach(sampleFlow.nodes, (node) => {
+        const nodeSchemaMapItem = _.find(fakeNodeSchemaMap, {uuid: node.uuid})
+        let nodeSchema
+        if (nodeSchemaMapItem.category === 'device') {
+          nodeSchema = nodeSchemaMapItem.schemas.message
+        } else {
+          nodeSchema = nodeSchemaMapItem.schema
+        }
+
         expect(sut).to.contain(
           <BluprintConfigBuilderItem
             node={node}
-            nodeSchema={fakeNodeSchemaMap[node.uuid]}
+            nodeSchema={nodeSchema}
             onUpdate={sut.instance().handleUpdate}
             key={node.id}
           />

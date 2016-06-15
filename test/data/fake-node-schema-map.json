@@ -1,39 +1,89 @@
-{
-  "37f0a74a-2f17-11e4-9617-a6c5e4d22fb7":{
-    "title": "Trigger",
-    "type": "object",
-    "properties": {
-      "alias": {
-        "type": "string",
-        "title": "Alias"
-      },
-      "payloadType": {
-        "type": "string",
-        "title": "Payload Type",
-        "enum": [
-          "date",
-          "none",
-          "string"
-        ]
-      },
-      "payload": {
-        "type": "string",
-        "title": "Payload"
+[
+  {
+    "uuid": "37f0a74a-2f17-11e4-9617-a6c5e4d22fb7",
+    "category": "operation",
+    "schema": {
+      "title": "Trigger",
+      "type": "object",
+      "properties": {
+        "alias": {
+          "type": "string",
+          "title": "Alias"
+        },
+        "payloadType": {
+          "type": "string",
+          "title": "Payload Type",
+          "enum": [
+            "date",
+            "none",
+            "string"
+          ]
+        },
+        "payload": {
+          "type": "string",
+          "title": "Payload"
+        }
       }
     }
   },
-  "c36c413c-c4df-4c5b-9861-fcd08bc81503": {
-    "title": "Greater-Than-Or-Equal",
-    "type": "object",
-    "properties": {
-      "left": {
-        "type": "string",
-        "title": "Left"
-      },
-      "right": {
-        "type": "string",
-        "title": "Right"
+  {
+    "uuid": "805facce-a857-492f-a4d7-9632d38bddb1",
+    "category": "device",
+    "schemas": {
+      "message": {
+        "example-message-01": {
+          "type": "object",
+          "properties": {
+            "example-opt": {
+              "type": "string"
+            },
+            "another-example-opt": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "example-opt",
+            "another-example-opt"
+          ]
+        },
+        "example-message-02": {
+          "type": "object",
+          "properties": {
+            "some-opt": {
+              "type": "string"
+            },
+            "another-some-opt": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "some-opt",
+            "another-some-opt"
+          ]
+        }
       }
     }
+  },
+  {
+    "uuid": "8f2e02ff-08da-446d-ab50-e5115f511cba",
+    "category": "operation",
+    "schema": {
+      "title": "Template",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "title": "Key"
+        },
+        "template": {
+          "type": "string",
+          "title": "Template"
+        }
+      }
+    }
+  },
+  {
+    "uuid": "37f0b88e-2f17-11e4-9617-a6c5e4d22fb7",
+    "category": "operation"
   }
-}
+]

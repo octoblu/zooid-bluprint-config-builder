@@ -1,24 +1,40 @@
 {
-  "flowId": "abc91263-991e-43a4-b268-ead72db92165",
-  "name": "Flow abc91263",
+  "flowId": "50788dd2-1aef-4622-bd17-b2589295fd13",
+  "name": "Flow 50788dd2",
   "description": null,
-  "hash": "f29fab9a",
+  "resource": {
+    "nodeType": "flow",
+    "owner": {
+      "uuid": "e44b4b5d-959c-48c6-94de-5e5d5afa4fcb",
+      "nodeType": "user"
+    }
+  },
+  "drafted": true,
   "links": [
     {
-      "from": "cc511710-189c-11e6-afe0-75a40694b634",
+      "from": "e939b340-3328-11e6-82de-a35acb2c9283",
       "fromPort": 0,
-      "to": "f7828940-2db0-11e6-a1f8-3597b52ad7d7",
+      "to": "ebd0fff0-3328-11e6-82de-a35acb2c9283",
       "toPort": 0
     },
     {
-      "from": "f7828940-2db0-11e6-a1f8-3597b52ad7d7",
+      "from": "ebd0fff0-3328-11e6-82de-a35acb2c9283",
       "fromPort": 0,
-      "to": "cec5c090-189c-11e6-afe0-75a40694b634",
+      "to": "f6de6fe0-3328-11e6-82de-a35acb2c9283",
+      "toPort": 0
+    },
+    {
+      "from": "f6de6fe0-3328-11e6-82de-a35acb2c9283",
+      "fromPort": 0,
+      "to": "01c8ee80-3329-11e6-82de-a35acb2c9283",
       "toPort": 0
     }
   ],
   "nodes": [
     {
+      "id": "e939b340-3328-11e6-82de-a35acb2c9283",
+      "payloadType": "date",
+      "once": false,
       "name": "Trigger",
       "class": "trigger",
       "category": "operation",
@@ -28,18 +44,57 @@
         "name": "nanocyte-node-trigger"
       },
       "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
-      "id": "cc511710-189c-11e6-afe0-75a40694b634",
-      "payloadType": "date",
-      "once": false,
-      "inputLocations": [],
-      "outputLocations": [],
-      "x": -153.84101104736328,
-      "y": 209.22947692871094,
+      "x": 158.98512268066406,
+      "y": 344.73828125,
       "staticMessage": {},
       "needsConfiguration": false,
       "needsSetup": false
     },
     {
+      "id": "ebd0fff0-3328-11e6-82de-a35acb2c9283",
+      "category": "device",
+      "useStaticMessage": true,
+      "noPayloadWrapper": true,
+      "type": "device:generic",
+      "name": "IoT Generic Device",
+      "uuid": "805facce-a857-492f-a4d7-9632d38bddb1",
+      "meshblu": {
+        "hash": "vz2KAMY6rrtdZSqxtki/xv5MawkjEOFoP0pO0REBmqA="
+      },
+      "class": "device-generic",
+      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
+      "x": 251.17047119140625,
+      "y": 262.217529296875,
+      "staticMessage": {
+        "example-opt": "option A",
+        "another-example-opt": "option B"
+      },
+      "needsConfiguration": false,
+      "needsSetup": false,
+      "selectedSchemaKey": "example-message-01"
+    },
+    {
+      "id": "f6de6fe0-3328-11e6-82de-a35acb2c9283",
+      "name": "Template",
+      "class": "template",
+      "category": "operation",
+      "uuid": "8f2e02ff-08da-446d-ab50-e5115f511cba",
+      "type": "operation:template",
+      "nanocyte": {
+        "name": "nanocyte-node-template"
+      },
+      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
+      "x": 368.6324462890625,
+      "y": 369.271484375,
+      "staticMessage": {},
+      "needsConfiguration": false,
+      "needsSetup": false
+    },
+    {
+      "id": "01c8ee80-3329-11e6-82de-a35acb2c9283",
+      "active": true,
+      "debug": true,
+      "complete": false,
       "name": "Debug",
       "class": "debug",
       "category": "operation",
@@ -51,37 +106,12 @@
         "name": "nanocyte-node-debug"
       },
       "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
-      "id": "cec5c090-189c-11e6-afe0-75a40694b634",
-      "active": true,
-      "debug": true,
-      "complete": false,
-      "inputLocations": [],
-      "outputLocations": [],
-      "x": 414.9035949707031,
-      "y": 227.5318603515625,
+      "x": 454.8703308105469,
+      "y": 488.2203369140625,
       "staticMessage": {},
-      "needsConfiguration": false,
-      "needsSetup": false
-    },
-    {
-      "name": "Greater Than or Equal",
-      "class": "greater-than-equal",
-      "category": "operation",
-      "uuid": "c36c413c-c4df-4c5b-9861-fcd08bc81503",
-      "type": "operation:greater-than-equal",
-      "nanocyte": {
-        "name": "nanocyte-node-greater-than-equal"
-      },
-      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
-      "id": "f7828940-2db0-11e6-a1f8-3597b52ad7d7",
-      "value": 0,
-      "staticMessage": {},
-      "inputLocations": [],
-      "outputLocations": [],
-      "x": 143.2560272216797,
-      "y": 219.67428588867188,
       "needsConfiguration": false,
       "needsSetup": false
     }
-  ]
+  ],
+  "activated": true
 }

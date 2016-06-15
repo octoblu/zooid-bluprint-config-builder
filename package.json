@@ -1,6 +1,6 @@
 {
   "name": "zooid-ui-bluprint-config-builder",
-  "version": "3.0.0",
+  "version": "--minor",
   "description": "BluprintConfigBuilder",
   "main": "dist/bundle.js",
   "scripts": {
