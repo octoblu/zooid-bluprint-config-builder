@@ -5,7 +5,7 @@ import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem';
 
 const propTypes = {
   flow: PropTypes.object,
-  nodeSchemas: PropTypes.object,
+  nodeSchemaMap: PropTypes.object,
   onUpdate: PropTypes.func,
 };
 
@@ -39,16 +39,16 @@ class BluprintConfigBuilder extends React.Component {
   }
 
   render() {
-    const { flow, nodeSchemas } = this.props;
+    const { flow, nodeSchemaMap } = this.props;
 
     if (_.isEmpty(flow)) return null;
     if (_.isEmpty(flow.nodes)) return null;
-    if (_.isEmpty(nodeSchemas)) return null;
+    if (_.isEmpty(nodeSchemaMap)) return null;
 
     const items = _.map(flow.nodes, (node) => (
       <BluprintConfigBuilderItem
         node={node}
-        nodeSchema={nodeSchemas[node.class]}
+        nodeSchema={nodeSchemaMap[node.uuid]}
         onUpdate={this.handleUpdate}
         key={node.id}
       />

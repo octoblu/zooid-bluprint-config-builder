@@ -10,7 +10,7 @@ import BluprintConfigBuilder from './';
 import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem';
 
 import sampleFlow from '../../test/data/sample-flow.json';
-import schemaRegistry from '../../test/data/schema-registry.json';
+import fakeNodeSchemaMap from '../../test/data/fake-node-schema-map.json';
 
 chai.use(chaiEnzyme());
 chai.use(sinonChai);
@@ -26,25 +26,35 @@ describe('<BluprintConfigBuilder />', () => {
     expect(sut).to.be.empty;
   });
 
-  it('should render nothing when schemaRegistry prop is not passed in', () => {
+  it('should render nothing when nodeSchemaMap prop is not passed in', () => {
     const sut = shallow(<BluprintConfigBuilder flow={sampleFlow} />);
     expect(sut).to.be.empty;
   });
 
   describe('when given a flow with nodes', () => {
     it('should render the element', () => {
-      const sut = shallow(<BluprintConfigBuilder flow={sampleFlow} nodeSchemas={schemaRegistry} />);
+      const sut = shallow(
+        <BluprintConfigBuilder
+          flow={sampleFlow}
+          nodeSchemaMap={fakeNodeSchemaMap}
+        />
+      );
       expect(sut).to.not.be.blank;
     });
 
     it('should render BluprintConfigBuilderItem for each node in the flow', () => {
-      const sut = mount(<BluprintConfigBuilder flow={sampleFlow} nodeSchemas={schemaRegistry} onUpdate={_.noop} />);
+      const sut = mount(
+        <BluprintConfigBuilder
+          flow={sampleFlow}
+          nodeSchemaMap={fakeNodeSchemaMap}
+          onUpdate={_.noop}
+        />);
 
       _.forEach(sampleFlow.nodes, (node) => {
         expect(sut).to.contain(
           <BluprintConfigBuilderItem
             node={node}
-            nodeSchema={schemaRegistry[node.class]}
+            nodeSchema={fakeNodeSchemaMap[node.uuid]}
             onUpdate={sut.instance().handleUpdate}
             key={node.id}
           />
@@ -70,7 +80,7 @@ describe('<BluprintConfigBuilder />', () => {
       sut = mount(
         <BluprintConfigBuilder
           flow={sampleFlow}
-          nodeSchemas={schemaRegistry}
+          nodeSchemaMap={fakeNodeSchemaMap}
           onUpdate={handleUpdate}
         />
       )
