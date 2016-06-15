@@ -47,7 +47,6 @@ class BluprintConfigBuilder extends React.Component {
 
     const items = _.map(flow.nodes, (node) => {
       const nodeSchemaMapItem = _.find(nodeSchemaMap, { uuid: node.uuid })
-      console.log('nodeSchemaMapItem', nodeSchemaMapItem);
       let nodeSchema
       if (_.isEmpty(nodeSchemaMapItem)) return null
       if(nodeSchemaMapItem.category === 'device'){
