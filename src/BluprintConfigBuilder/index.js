@@ -50,7 +50,7 @@ class BluprintConfigBuilder extends React.Component {
       let nodeSchema
       if (_.isEmpty(nodeSchemaMapItem)) return null
       if(nodeSchemaMapItem.category === 'device'){
-        nodeSchema = nodeSchemaMapItem.schemas.message
+        nodeSchema = nodeSchemaMapItem.schemas.message[node.selectedSchemaKey]
       } else {
         nodeSchema = nodeSchemaMapItem.schema
       }

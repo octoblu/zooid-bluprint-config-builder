@@ -32,6 +32,7 @@
     "schemas": {
       "message": {
         "example-message-01": {
+          "title": "Example Message 01",
           "type": "object",
           "properties": {
             "example-opt": {
@@ -47,6 +48,7 @@
           ]
         },
         "example-message-02": {
+          "title": "Example Message 02",
           "type": "object",
           "properties": {
             "some-opt": {

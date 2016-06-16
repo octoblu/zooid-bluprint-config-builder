@@ -76,9 +76,10 @@ class NodeMapField extends React.Component {
       );
     }
 
+    console.log('nodePropertySchema', nodePropertySchema, nodeProperty);
     return (
       <div name={nodeId}>
-        <span>{nodePropertySchema.title}</span>
+        <span>{nodePropertySchema.title || nodeProperty}</span>
         <input
           type="checkbox"
           name={`${nodeId}.${nodeProperty}`}

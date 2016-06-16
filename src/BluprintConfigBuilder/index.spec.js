@@ -54,7 +54,7 @@ describe('<BluprintConfigBuilder />', () => {
         const nodeSchemaMapItem = _.find(fakeNodeSchemaMap, {uuid: node.uuid})
         let nodeSchema
         if (nodeSchemaMapItem.category === 'device') {
-          nodeSchema = nodeSchemaMapItem.schemas.message
+          nodeSchema = nodeSchemaMapItem.schemas.message[node.selectedSchemaKey]
         } else {
           nodeSchema = nodeSchemaMapItem.schema
         }

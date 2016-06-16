@@ -15,15 +15,20 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate }) => {
 
   const nodeProperties = nodeSchema.properties
 
-  const nodeProps = _.map(_.keys(nodeProperties), (property, index) => (
-    <NodeMapField
-      nodeId={node.id}
-      nodeProperty={property}
-      nodePropertySchema={nodeProperties[property]}
-      onUpdate={onUpdate}
-      key={index}
-    />
-  ));
+  console.log('nodeProperties', nodeProperties)
+
+  const nodeProps = _.map(_.keys(nodeProperties), (property, index) => {
+    console.log('property', property)
+    return (
+      <NodeMapField
+        nodeId={node.id}
+        nodeProperty={property}
+        nodePropertySchema={nodeProperties[property]}
+        onUpdate={onUpdate}
+        key={index}
+      />
+    )
+  })
 
   return (
     <fieldset>
