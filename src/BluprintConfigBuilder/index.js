@@ -1,20 +1,20 @@
-import _ from 'lodash';
-import React, { PropTypes } from 'react';
+import _ from 'lodash'
+import React, { PropTypes } from 'react'
 
-import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem';
+import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem'
 
 const propTypes = {
   flow: PropTypes.object,
   nodeSchemaMap: PropTypes.array,
   onUpdate: PropTypes.func,
-};
+}
 
 class BluprintConfigBuilder extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = { configList: [] }
-    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this)
   }
 
   handleUpdate(updatedConfig) {
@@ -39,21 +39,22 @@ class BluprintConfigBuilder extends React.Component {
   }
 
   render() {
-    const { flow, nodeSchemaMap } = this.props;
+    const { flow, nodeSchemaMap } = this.props
 
-    if (_.isEmpty(flow)) return null;
-    if (_.isEmpty(flow.nodes)) return null;
-    if (_.isEmpty(nodeSchemaMap)) return null;
+    if (_.isEmpty(flow)) return null
+    if (_.isEmpty(flow.nodes)) return null
+    if (_.isEmpty(nodeSchemaMap)) return null
 
     const items = _.map(flow.nodes, (node) => {
       const nodeSchemaMapItem = _.find(nodeSchemaMap, { uuid: node.uuid })
-      let nodeSchema
+
       if (_.isEmpty(nodeSchemaMapItem)) return null
-      if(nodeSchemaMapItem.category === 'device'){
+
+      let nodeSchema = nodeSchemaMapItem.schema
+      if (nodeSchemaMapItem.category === 'device') {
         nodeSchema = nodeSchemaMapItem.schemas.message[node.selectedSchemaKey]
-      } else {
-        nodeSchema = nodeSchemaMapItem.schema
       }
+
       return (
         <BluprintConfigBuilderItem
           node={node}
@@ -62,12 +63,12 @@ class BluprintConfigBuilder extends React.Component {
           key={node.id}
         />
       )
-    });
+    })
 
     return <div>{items}</div>
   }
 }
 
-BluprintConfigBuilder.propTypes = propTypes;
+BluprintConfigBuilder.propTypes = propTypes
 
-export default BluprintConfigBuilder;
+export default BluprintConfigBuilder

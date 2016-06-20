@@ -1,34 +1,62 @@
-import chai, { expect } from 'chai';
-import chaiEnzyme from 'chai-enzyme';
-import React from 'react';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-import { mount, shallow } from 'enzyme';
+import chai, { expect } from 'chai'
+import chaiEnzyme from 'chai-enzyme'
+import React from 'react'
+import sinon from 'sinon'
+import sinonChai from 'sinon-chai'
+import { mount, shallow } from 'enzyme'
 
-import NodeMapField from './';
+import NodeMapField from './'
 
-chai.use(chaiEnzyme());
-chai.use(sinonChai);
+chai.use(chaiEnzyme())
+chai.use(sinonChai)
 
-describe('<NodeMapField  />', () => {
+describe.only('<NodeMapField  />', () => {
+  describe('when component mounts', () => {
+    let sut
+    beforeEach(() => {
+      sut = shallow(
+        <NodeMapField
+          nodeId=""
+          nodePropertySchema={null}
+          nodeProperty={null}
+        />
+      )
+    })
+
+    it('should have showConfigProperty state set to false', () => {
+      expect(sut).to.have.state('showConfigProperty').equal(false)
+    })
+
+    it('should have configName state set to an empty string', () => {
+      expect(sut).to.have.state('configName').equal('')
+    })
+
+    it('should have required state set to false', () => {
+      expect(sut).to.have.state('required').equal(false)
+    })
+
+    it('should have helpText state set to an empty string', () => {
+      expect(sut).to.have.state('helpText').equal('')
+    })
+  })
+
   it('should render nothing when nodeId prop is empty', () => {
-    const sut = shallow(<NodeMapField nodePropertySchema="fancy" />);
-    expect(sut).to.be.empty;
-  });
+    const sut = shallow(<NodeMapField nodePropertySchema="fancy" />)
+    expect(sut).to.be.empty
+  })
 
   it('should render nothing when nodePropertySchema prop is empty', () => {
-    const sut = shallow(<NodeMapField nodeId="cool-gang" />);
-    expect(sut).to.be.empty;
-  });
-
+    const sut = shallow(<NodeMapField nodeId="cool-gang" />)
+    expect(sut).to.be.empty
+  })
 
   it('should render nothing when nodeProperty prop is empty', () => {
-    const sut = shallow(<NodeMapField nodeId="cool-gang" nodePropertySchema="fancy" />);
-    expect(sut).to.be.empty;
-  });
+    const sut = shallow(<NodeMapField nodeId="cool-gang" nodePropertySchema="fancy" />)
+    expect(sut).to.be.empty
+  })
 
   describe('when nodeId, nodePropertySchema & nodeProperty props are passed in', () => {
-    let sut;
+    let sut
 
     beforeEach(() => {
       const nodeProperty = 'alias'
@@ -43,46 +71,88 @@ describe('<NodeMapField  />', () => {
           nodePropertySchema={nodePropertySchema}
           nodeProperty={nodeProperty}
         />
-      );
-    });
-
-    it('should default showConfigProperty state to false', () => {
-      expect(sut).to.have.state('showConfigProperty').equal(false);
-    });
-
-    it('should default configName state to an empty string', () => {
-      expect(sut).to.have.state('configName').equal('');
-    });
+      )
+    })
 
     it('should render nodePropertySchema label', () => {
-      expect(sut).to.contain('Alias');
-    });
+      expect(sut).to.contain('Alias')
+    })
 
-    it('should render a checkbox', () => {
-      expect(sut.find("input[type='checkbox']").length).to.equal(1);
-    });
+    it('should render the showConfigProperty checkbox', () => {
+      expect(sut.find('input[type="checkbox"]').length).to.equal(1)
+    })
 
     it('should set showConfigProperty state to true when checkbox is checked', () => {
-      const checkbox = sut.find("input[type='checkbox']");
-      checkbox.simulate('click');
-      expect(sut).to.have.state('showConfigProperty').equal(true);
-    });
+      const checkbox = sut.find('input[type="checkbox"]')
+      checkbox.simulate('change', { target: { checked: true } })
+      expect(sut).to.have.state('showConfigProperty').equal(true)
+    })
+  })
 
-    it('should render configName field if configure state is truthy', () => {
-      sut.setState({ showConfigProperty: true });
-      expect(sut.find('input[type="text"]').length).to.equal(1);
-    });
-  });
+  describe('when showConfigProperty state is truthy', () => {
+    let sut
+
+    beforeEach(() => {
+      const nodeProperty = 'alias'
+      const nodePropertySchema = {
+        type: 'string',
+        title: 'Alias',
+      }
+
+      sut = shallow(
+        <NodeMapField
+          nodeId="Carter-IV"
+          nodePropertySchema={nodePropertySchema}
+          nodeProperty={nodeProperty}
+        />
+      )
+
+      sut.setState({ showConfigProperty: true })
+    })
+
+    it('should render configName input field', () => {
+      expect(sut.find('label[htmlFor="configProperty"]').length).to.equal(1)
+      expect(sut.find('input[name="configProperty"]').length).to.equal(1)
+    })
+
+    it('should render requiredField form field', () => {
+      expect(sut.find('label[htmlFor="requiredField"]').length).to.equal(1)
+      expect(sut.find('input[name="requiredField"]').length).to.equal(1)
+      expect(sut.find('input[name="requiredField"]')).to.not.be.checked()
+    })
+
+    it('should set required state to true when requiredField input is checked', () => {
+      const requiredFieldInput = sut.find('input[name="requiredField"]')
+      requiredFieldInput.simulate('change', { target: { checked: true } })
+      expect(sut).to.have.state('required').equal(true)
+    })
+
+    it('should set required state to false when requiredField input is not checked', () => {
+      const requiredFieldInput = sut.find('input[name="requiredField"]')
+      requiredFieldInput.simulate('change', { target: { checked: false } })
+      expect(sut).to.have.state('required').equal(false)
+    })
+
+    it('should update the helpText state when the helpText text area changes', () => {
+      const helpTextArea = sut.find('textarea')
+      helpTextArea.simulate('change', { target: { value: 'cats' } })
+      expect(sut).to.have.state('helpText').equal('cats')
+    })
+    it('should render helpText form field', () => {
+      expect(sut.find('label[htmlFor="helpText"]').length).to.equal(1)
+      expect(sut.find('textarea[name="helpText"]').length).to.equal(1)
+    })
+  })
 
   describe('when configName is empty', () => {
-    let sut;
-    let nodeId = 'Nintendo-64';
+    let sut
+    let nodeId = 'Nintendo-64'
     let nodePropertySchema = {
       type: 'string',
       title: 'Payload',
     }
     let nodeProperty = 'payload'
-    let onUpdateHandler = sinon.stub();
+    let onUpdateHandler = sinon.stub()
 
     beforeEach(() => {
       sut = mount(
@@ -96,24 +166,24 @@ describe('<NodeMapField  />', () => {
       sut.setState({
         showConfigProperty: true,
         configName: '',
-      });
-    });
+      })
+    })
 
     it('should not call onUpdate onChange', () => {
-      sut.find('input[type="text"]').simulate('change');
-      expect(onUpdateHandler).to.not.have.been.called;
-    });
-  });
+      sut.find('input[type="text"]').simulate('change')
+      expect(onUpdateHandler).to.not.have.been.called
+    })
+  })
 
   describe('when configName is set', () => {
-    let sut;
-    let nodeId = 'Nintendo-64';
+    let sut
+    let nodeId = 'Nintendo-64'
     let nodePropertySchema = {
       type: 'string',
       title: 'Payload Type',
-    };
+    }
     let nodeProperty = 'payloadType'
-    let onUpdateHandler = sinon.stub();
+    let onUpdateHandler = sinon.stub()
 
     beforeEach(() => {
       sut = mount(
@@ -128,17 +198,60 @@ describe('<NodeMapField  />', () => {
       sut.setState({
         showConfigProperty: true,
         configName: 'myPayload',
-      });
-    });
+      })
+    })
 
-    it('should call onUpdate onChange', () => {
-      sut.find('input[type="text"]').simulate('change');
+    it('should call onUpdate on change with correct args', () => {
+      sut.find('input[type="text"]').simulate('change')
       expect(onUpdateHandler).to.have.been.calledWith({
         configureProperty: 'myPayload',
         nodeId,
+        required: false,
         nodeProperty,
+        helpText: '',
         type: 'string',
-      });
-    });
-  });
-});
+      })
+    })
+  })
+
+  describe('when configName is set, required is true, and helpText is set', () => {
+    let sut
+    let nodeId = 'Nintendo-64'
+    let nodePropertySchema = {
+      type: 'string',
+      title: 'Payload Type',
+    }
+    let nodeProperty = 'payloadType'
+    let onUpdateHandler = sinon.stub()
+
+    beforeEach(() => {
+      sut = mount(
+        <NodeMapField
+          nodeId={nodeId}
+          nodePropertySchema={nodePropertySchema}
+          nodeProperty={nodeProperty}
+          onUpdate={onUpdateHandler}
+        />
+      )
+
+      sut.setState({
+        configName: 'myPayload',
+        required: true,
+        helpText: 'cats',
+        showConfigProperty: true,
+      })
+    })
+
+    it('should call onUpdate on change with correct args', () => {
+      sut.find('input[type="text"]').simulate('change')
+      expect(onUpdateHandler).to.have.been.calledWith({
+        nodeId,
+        nodeProperty,
+        helpText: 'cats',
+        configureProperty: 'myPayload',
+        required: true,
+        type: 'string',
+      })
+    })
+  })
+})

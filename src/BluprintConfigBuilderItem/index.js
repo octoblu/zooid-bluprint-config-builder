@@ -1,24 +1,21 @@
-import _ from 'lodash';
-import React, { PropTypes } from 'react';
+import _ from 'lodash'
+import React, { PropTypes } from 'react'
 
-import NodeMapField from '../NodeMapField';
+import NodeMapField from '../NodeMapField'
 
 const propTypes = {
   node: PropTypes.object,
   nodeSchema: PropTypes.object,
   onUpdate: PropTypes.func,
-};
+}
 
 const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate }) => {
-  if (_.isEmpty(node)) return null;
-  if (_.isEmpty(nodeSchema)) return null;
+  if (_.isEmpty(node)) return null
+  if (_.isEmpty(nodeSchema)) return null
 
   const nodeProperties = nodeSchema.properties
 
-  console.log('nodeProperties', nodeProperties)
-
   const nodeProps = _.map(_.keys(nodeProperties), (property, index) => {
-    console.log('property', property)
     return (
       <NodeMapField
         nodeId={node.id}
@@ -35,9 +32,9 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate }) => {
       <legend>Node: {nodeSchema.title}</legend>
       {nodeProps}
     </fieldset>
-  );
-};
+  )
+}
 
-BluprintConfigBuilderItem.propTypes = propTypes;
+BluprintConfigBuilderItem.propTypes = propTypes
 
-export default BluprintConfigBuilderItem;
+export default BluprintConfigBuilderItem

@@ -1,26 +1,26 @@
-import chai, { expect } from 'chai';
-import chaiEnzyme from 'chai-enzyme';
-import React from 'react';
-import sinon from 'sinon';
-import { shallow } from 'enzyme';
+import chai, { expect } from 'chai'
+import chaiEnzyme from 'chai-enzyme'
+import React from 'react'
+import sinon from 'sinon'
+import { shallow } from 'enzyme'
 
-import BluprintConfigBuilderItem from './';
-import NodeMapField from '../NodeMapField';
+import BluprintConfigBuilderItem from './'
+import NodeMapField from '../NodeMapField'
 
-import sampleFlow from '../../test/data/sample-flow.json';
+import sampleFlow from '../../test/data/sample-flow.json'
 
-chai.use(chaiEnzyme());
+chai.use(chaiEnzyme())
 
 describe('<BluprintConfigBuilderItem />', () => {
   it('should render nothing when node prop is empty', () => {
-    const sut = shallow(<BluprintConfigBuilderItem />);
-    expect(sut).to.be.empty;
-  });
+    const sut = shallow(<BluprintConfigBuilderItem />)
+    expect(sut).to.be.empty
+  })
 
   it('should render nothing when given a node that is an empty object', () => {
-    const sut = shallow(<BluprintConfigBuilderItem node={{}} />);
-    expect(sut).to.be.empty;
-  });
+    const sut = shallow(<BluprintConfigBuilderItem node={{}} />)
+    expect(sut).to.be.empty
+  })
 
   describe('when given valid node & nodeSchema', () => {
     let nodeSchema
@@ -51,17 +51,17 @@ describe('<BluprintConfigBuilderItem />', () => {
             title: 'Payload',
           },
         },
-      };
-      node = sampleFlow.nodes[0];
-      onUpdate = sinon.spy();
+      }
+      node = sampleFlow.nodes[0]
+      onUpdate = sinon.spy()
       sut = shallow(
         <BluprintConfigBuilderItem
           node={node}
           nodeSchema={nodeSchema}
           onUpdate={onUpdate}
         />
-      );
-    });
+      )
+    })
 
     it('should render NodeMapFields for each property', () => {
       expect(sut).to.contain(
@@ -71,7 +71,7 @@ describe('<BluprintConfigBuilderItem />', () => {
           nodePropertySchema={nodeSchema.properties.alias}
           onUpdate={onUpdate}
         />
-      );
+      )
 
       expect(sut).to.contain(
         <NodeMapField
@@ -80,7 +80,7 @@ describe('<BluprintConfigBuilderItem />', () => {
           nodePropertySchema={nodeSchema.properties.payload}
           onUpdate={onUpdate}
         />
-      );
+      )
 
       expect(sut).to.contain(
         <NodeMapField
@@ -89,7 +89,7 @@ describe('<BluprintConfigBuilderItem />', () => {
           nodePropertySchema={nodeSchema.properties.payloadType}
           onUpdate={onUpdate}
         />
-      );
-    });
-  });
-});
+      )
+    })
+  })
+})

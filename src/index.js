@@ -1,3 +1,3 @@
-import BluprintConfigBuilder from './BluprintConfigBuilder';
+import BluprintConfigBuilder from './BluprintConfigBuilder'
 
-export default BluprintConfigBuilder;
+export default BluprintConfigBuilder

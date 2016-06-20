@@ -1,35 +1,35 @@
-import _ from 'lodash';
-import chai, { expect } from 'chai';
-import chaiEnzyme from 'chai-enzyme';
-import React from 'react';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-import { mount, shallow } from 'enzyme';
+import _ from 'lodash'
+import chai, { expect } from 'chai'
+import chaiEnzyme from 'chai-enzyme'
+import React from 'react'
+import sinon from 'sinon'
+import sinonChai from 'sinon-chai'
+import { mount, shallow } from 'enzyme'
 
-import BluprintConfigBuilder from './';
-import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem';
+import BluprintConfigBuilder from './'
+import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem'
 
-import sampleFlow from '../../test/data/sample-flow.json';
-import fakeNodeSchemaMap from '../../test/data/fake-node-schema-map.json';
+import sampleFlow from '../../test/data/sample-flow.json'
+import fakeNodeSchemaMap from '../../test/data/fake-node-schema-map.json'
 
-chai.use(chaiEnzyme());
-chai.use(sinonChai);
+chai.use(chaiEnzyme())
+chai.use(sinonChai)
 
 describe('<BluprintConfigBuilder />', () => {
   it('should render nothing when flow prop is not passed', () => {
-    const sut = shallow(<BluprintConfigBuilder />);
-    expect(sut).to.be.empty;
-  });
+    const sut = shallow(<BluprintConfigBuilder />)
+    expect(sut).to.be.empty
+  })
 
   it('should render nothing when given a flow that is an empty object', () => {
-    const sut = shallow(<BluprintConfigBuilder flow={{}} />);
-    expect(sut).to.be.empty;
-  });
+    const sut = shallow(<BluprintConfigBuilder flow={{}} />)
+    expect(sut).to.be.empty
+  })
 
   it('should render nothing when nodeSchemaMap prop is not passed in', () => {
-    const sut = shallow(<BluprintConfigBuilder flow={sampleFlow} />);
-    expect(sut).to.be.empty;
-  });
+    const sut = shallow(<BluprintConfigBuilder flow={sampleFlow} />)
+    expect(sut).to.be.empty
+  })
 
   describe('when given a flow with nodes', () => {
     it('should render the element', () => {
@@ -38,9 +38,9 @@ describe('<BluprintConfigBuilder />', () => {
           flow={sampleFlow}
           nodeSchemaMap={fakeNodeSchemaMap}
         />
-      );
-      expect(sut).to.not.be.blank;
-    });
+      )
+      expect(sut).to.not.be.blank
+    })
 
     it('should render BluprintConfigBuilderItem for each node in the flow', () => {
       const sut = mount(
@@ -48,10 +48,10 @@ describe('<BluprintConfigBuilder />', () => {
           flow={sampleFlow}
           nodeSchemaMap={fakeNodeSchemaMap}
           onUpdate={_.noop}
-        />);
+        />)
 
       _.forEach(sampleFlow.nodes, (node) => {
-        const nodeSchemaMapItem = _.find(fakeNodeSchemaMap, {uuid: node.uuid})
+        const nodeSchemaMapItem = _.find(fakeNodeSchemaMap, { uuid: node.uuid })
         let nodeSchema
         if (nodeSchemaMapItem.category === 'device') {
           nodeSchema = nodeSchemaMapItem.schemas.message[node.selectedSchemaKey]
@@ -67,7 +67,7 @@ describe('<BluprintConfigBuilder />', () => {
             key={node.id}
           />
         )
-      });
+      })
     })
   })
 
