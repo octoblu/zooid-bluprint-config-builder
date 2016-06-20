@@ -35,8 +35,8 @@ describe.only('<NodeMapField  />', () => {
       expect(sut).to.have.state('required').equal(false)
     })
 
-    it('should have helpText state set to an empty string', () => {
-      expect(sut).to.have.state('helpText').equal('')
+    it('should have description state set to an empty string', () => {
+      expect(sut).to.have.state('description').equal('')
     })
   })
 
@@ -133,14 +133,14 @@ describe.only('<NodeMapField  />', () => {
       expect(sut).to.have.state('required').equal(false)
     })
 
-    it('should update the helpText state when the helpText text area changes', () => {
-      const helpTextArea = sut.find('textarea')
-      helpTextArea.simulate('change', { target: { value: 'cats' } })
-      expect(sut).to.have.state('helpText').equal('cats')
+    it('should update the description state when the description text area changes', () => {
+      const descriptionArea = sut.find('textarea')
+      descriptionArea.simulate('change', { target: { value: 'cats' } })
+      expect(sut).to.have.state('description').equal('cats')
     })
-    it('should render helpText form field', () => {
-      expect(sut.find('label[htmlFor="helpText"]').length).to.equal(1)
-      expect(sut.find('textarea[name="helpText"]').length).to.equal(1)
+    it('should render description form field', () => {
+      expect(sut.find('label[htmlFor="description"]').length).to.equal(1)
+      expect(sut.find('textarea[name="description"]').length).to.equal(1)
     })
   })
 
@@ -208,13 +208,13 @@ describe.only('<NodeMapField  />', () => {
         nodeId,
         required: false,
         nodeProperty,
-        helpText: '',
+        description: '',
         type: 'string',
       })
     })
   })
 
-  describe('when configName is set, required is true, and helpText is set', () => {
+  describe('when configName is set, required is true, and description is set', () => {
     let sut
     let nodeId = 'Nintendo-64'
     let nodePropertySchema = {
@@ -237,7 +237,7 @@ describe.only('<NodeMapField  />', () => {
       sut.setState({
         configName: 'myPayload',
         required: true,
-        helpText: 'cats',
+        description: 'cats',
         showConfigProperty: true,
       })
     })
@@ -247,7 +247,7 @@ describe.only('<NodeMapField  />', () => {
       expect(onUpdateHandler).to.have.been.calledWith({
         nodeId,
         nodeProperty,
-        helpText: 'cats',
+        description: 'cats',
         configureProperty: 'myPayload',
         required: true,
         type: 'string',

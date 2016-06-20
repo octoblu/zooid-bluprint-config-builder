@@ -18,7 +18,7 @@ class NodeMapField extends React.Component {
 
     this.state = {
       configName: '',
-      helpText: '',
+      description: '',
       showConfigProperty: false,
       required: false,
     }
@@ -26,7 +26,7 @@ class NodeMapField extends React.Component {
   }
 
   componentDidUpdate() {
-    const { configName, helpText, required } = this.state
+    const { configName, description, required } = this.state
     const configureProperty = configName
 
     if (_.isEmpty(configureProperty)) return
@@ -36,7 +36,7 @@ class NodeMapField extends React.Component {
 
     onUpdate({
       configureProperty,
-      helpText,
+      description,
       nodeId,
       nodeProperty,
       required,
@@ -48,8 +48,8 @@ class NodeMapField extends React.Component {
     this.setState({ configName: target.value })
   }
 
-  setHelpTextState = ({ target }) => {
-    this.setState({ helpText: target.value })
+  setDescriptionState = ({ target }) => {
+    this.setState({ description: target.value })
   }
 
   setRequiredFieldState = ({ target }) => {
@@ -67,7 +67,7 @@ class NodeMapField extends React.Component {
     if (_.isEmpty(nodePropertySchema)) return null
     if (_.isEmpty(nodeProperty)) return null
 
-    const { configName, helpText, requiredField, showConfigProperty } = this.state
+    const { configName, description, requiredField, showConfigProperty } = this.state
 
     let configureInput = null
     if (showConfigProperty) {
@@ -90,8 +90,8 @@ class NodeMapField extends React.Component {
             onChange={this.setRequiredFieldState}
           />
 
-          <label htmlFor="helpText">Help Text</label>
-          <textarea name="helpText" value={helpText} onChange={this.setHelpTextState}/>
+          <label htmlFor="description">Description</label>
+          <textarea name="description" value={description} onChange={this.setDescriptionState}/>
         </div>
       )
     }
