@@ -6,6 +6,7 @@ const propTypes = {
   category: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   uuid: PropTypes.string.isRequired,
+  nodeName: PropTypes.string.isRequired,
   onUpdate: PropTypes.func,
 }
 const defaultProps = {
@@ -19,13 +20,14 @@ class DeviceSelector extends React.Component {
 
   componentDidUpdate() {
     const { useExisting } = this.state
-    const { onUpdate, uuid, nodeId, category } = this.props
+    const { onUpdate, uuid, nodeId, category, nodeName } = this.props
 
     if (category !== 'device') return null
     onUpdate({
       shareDevice: useExisting,
       uuid,
       nodeId,
+      nodeName
     })
   }
 

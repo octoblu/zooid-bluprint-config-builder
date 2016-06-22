@@ -36,12 +36,13 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate, onShareDevice }
 
   return (
     <div>
-      <Heading level={5}>Node: {nodeSchema.title}</Heading>
+      <Heading level={5}>Node: {nodeSchema.title || node.name}</Heading>
       <DeviceSelector
         nodeId={node.id}
         category={category}
         type={type}
         uuid={uuid}
+        nodeName={node.name}
         onUpdate={onShareDevice}
       />
       <List>{nodeProps}</List>

@@ -21,26 +21,38 @@ class BluprintConfigBuilder extends React.Component {
   }
 
 
-  onShareDevice = ({ shareDevice, nodeId }) => {
+  onShareDevice = ({ shareDevice, nodeId, nodeName }) => {
     if (shareDevice) return this.shareDevice(nodeId)
-    this.dontShareDevice(nodeId)
+    this.dontShareDevice(nodeId, nodeName)
   }
 
 
   shareDevice = (nodeId) => {
+    const { onUpdate } = this.props
+
     let { configList } = this.state
     const newConfigList = _.reject(configList, { nodeId, nodeProperty: 'uuid' })
     if( _.isEqual(newConfigList, configList)) return
-    this.setState({ configList: newConfigList })
+    this.setState({ configList: newConfigList }, () => {
+      onUpdate(this.state.configList)
+    })
   }
 
-  dontShareDevice = (nodeId) => {
+  dontShareDevice = (nodeId, name) => {
+    const { onUpdate } = this.props
+
     let { configList } = this.state
     const field = _.find(configList, { nodeId, nodeProperty: 'uuid' })
     if (field) return
-    configList.push({ nodeId, configProperty: 'sharedDevice', nodeProperty: 'uuid' })
-    this.setState({ configList })
-    return
+    configList.push({
+      nodeId,
+      configureProperty: name,
+      nodeProperty: 'uuid',
+      type: 'string'
+    })
+    this.setState({ configList }, () => {
+      onUpdate(this.state.configList)
+    })
   }
 
   handleUpdate(updatedConfig) {
@@ -79,6 +91,14 @@ class BluprintConfigBuilder extends React.Component {
       let nodeSchema = nodeSchemaMapItem.schema
       if (nodeSchemaMapItem.category === 'device') {
         nodeSchema = nodeSchemaMapItem.schemas.message[node.selectedSchemaKey]
+        if (nodeSchema === undefined) {
+          nodeSchema = {
+            message: {
+              title: node.name,
+              type: "object"
+            }
+          }
+        }
       }
 
       return (
