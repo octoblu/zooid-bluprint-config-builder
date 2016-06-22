@@ -1,6 +1,6 @@
 {
   "name": "zooid-ui-bluprint-config-builder",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "BluprintConfigBuilder",
   "main": "dist/bundle.js",
   "scripts": {
@@ -101,7 +101,8 @@
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^1.14.1",
+    "zooid-list": "^1.0.0"
   },
   "dependencies": {
     "json-schema-faker": "^0.3.3",

@@ -54,7 +54,6 @@ class DeviceSelector extends React.Component {
           name="useExistingDevice"
           checked={useExisting}
           onChange={this.useExistingDevice}
-          required
         />
         {userDevices}
       </div>
