@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import chai, { expect } from 'chai'
 import chaiEnzyme from 'chai-enzyme'
 import React from 'react'
@@ -6,6 +5,7 @@ import sinon from 'sinon'
 import sinonChai from 'sinon-chai'
 import { mount, shallow } from 'enzyme'
 import Switch from 'zooid-switch'
+import Input from 'zooid-input'
 
 import NodeMapField from './'
 
@@ -113,9 +113,8 @@ describe.only('<NodeMapField  />', () => {
       sut.setState({ showConfigProperty: true })
     })
 
-    it('should render configName input field', () => {
-      expect(sut.find('label[htmlFor="configProperty"]').length).to.equal(1)
-      expect(sut.find('input[name="configProperty"]').length).to.equal(1)
+    it('should render configName and description input fields', () => {
+      expect(sut.find(Input).length).to.equal(2)
     })
 
     it('should render requiredField form field', () => {
@@ -137,13 +136,9 @@ describe.only('<NodeMapField  />', () => {
     })
 
     it('should update the description state when the description text area changes', () => {
-      const descriptionArea = sut.find('textarea')
+      const descriptionArea = sut.find(Input).last()
       descriptionArea.simulate('change', { target: { value: 'cats' } })
       expect(sut).to.have.state('description').equal('cats')
-    })
-    it('should render description form field', () => {
-      expect(sut.find('label[htmlFor="description"]').length).to.equal(1)
-      expect(sut.find('textarea[name="description"]').length).to.equal(1)
     })
   })
 
@@ -173,7 +168,7 @@ describe.only('<NodeMapField  />', () => {
     })
 
     it('should not call onUpdate onChange', () => {
-      sut.find('input[type="text"]').simulate('change')
+      sut.find(Input).first().simulate('change')
       expect(onUpdateHandler).to.not.have.been.called
     })
   })
@@ -205,7 +200,7 @@ describe.only('<NodeMapField  />', () => {
     })
 
     it('should call onUpdate on change with correct args', () => {
-      sut.find('input[type="text"]').simulate('change')
+      sut.find(Input).first().simulate('change')
       expect(onUpdateHandler).to.have.been.calledWith({
         configureProperty: 'myPayload',
         nodeId,
@@ -246,7 +241,7 @@ describe.only('<NodeMapField  />', () => {
     })
 
     it('should call onUpdate on change with correct args', () => {
-      sut.find('input[type="text"]').simulate('change')
+      sut.find(Input).first().simulate('change')
       expect(onUpdateHandler).to.have.been.calledWith({
         nodeId,
         nodeProperty,
