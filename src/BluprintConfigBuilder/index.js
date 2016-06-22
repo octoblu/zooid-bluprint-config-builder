@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import React, { PropTypes } from 'react'
 
+import List, { ListItem } from 'zooid-list'
+
 import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem'
 
 const propTypes = {
@@ -80,17 +82,19 @@ class BluprintConfigBuilder extends React.Component {
       }
 
       return (
-        <BluprintConfigBuilderItem
-          node={node}
-          nodeSchema={nodeSchema}
-          onUpdate={this.handleUpdate}
-          onShareDevice={this.onShareDevice}
-          key={node.id}
-        />
+        <ListItem>
+          <BluprintConfigBuilderItem
+            node={node}
+            nodeSchema={nodeSchema}
+            onUpdate={this.handleUpdate}
+            onShareDevice={this.onShareDevice}
+            key={node.id}
+          />
+        </ListItem>
       )
     })
 
-    return <div>{items}</div>
+    return <List>{items}</List>
   }
 }
 

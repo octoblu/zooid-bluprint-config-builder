@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import React, { PropTypes } from 'react'
 
+import Heading from 'zooid-heading'
+import List, { ListItem } from 'zooid-list'
 import NodeMapField from '../NodeMapField'
 import DeviceSelector from '../DeviceSelector'
 
@@ -20,19 +22,21 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate, onShareDevice }
 
   const nodeProps = _.map(_.keys(nodeProperties), (property, index) => {
     return (
-      <NodeMapField
-        nodeId={node.id}
-        nodeProperty={property}
-        nodePropertySchema={nodeProperties[property]}
-        onUpdate={onUpdate}
-        key={index}
-      />
+      <ListItem>
+        <NodeMapField
+          nodeId={node.id}
+          nodeProperty={property}
+          nodePropertySchema={nodeProperties[property]}
+          onUpdate={onUpdate}
+          key={index}
+        />
+      </ListItem>
     )
   })
 
   return (
-    <fieldset>
-      <legend>Node: {nodeSchema.title}</legend>
+    <div>
+      <Heading level={5}>Node: {nodeSchema.title}</Heading>
       <DeviceSelector
         nodeId={node.id}
         category={category}
@@ -40,8 +44,8 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate, onShareDevice }
         uuid={uuid}
         onUpdate={onShareDevice}
       />
-      {nodeProps}
-    </fieldset>
+      <List>{nodeProps}</List>
+    </div>
   )
 }
 

@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import React, { PropTypes } from 'react'
 
+import Switch from 'zooid-switch'
+
 const propTypes = {
   nodeId: PropTypes.string,
   nodePropertySchema: PropTypes.object,
@@ -55,8 +57,8 @@ class NodeMapField extends React.Component {
     this.setState({ required: target.checked })
   }
 
-  toggleShowConfigPropertyState = ({ target }) => {
-    this.setState({ showConfigProperty: target.checked })
+  toggleShowConfigPropertyState = (checked) => {
+    this.setState({ showConfigProperty: checked })
   }
 
   render() {
@@ -72,37 +74,40 @@ class NodeMapField extends React.Component {
     if (showConfigProperty) {
       configureInput = (
         <div>
-          <label htmlFor="configProperty">Config Name</label>
-          <input
-            type="text"
-            name="configProperty"
-            value={configName}
-            onChange={this.setConfigNameState}
-            required
-          />
+          <div>
+            <label htmlFor="configProperty">Config Name</label>
+            <input
+              type="text"
+              name="configProperty"
+              value={configName}
+              onChange={this.setConfigNameState}
+              required
+            />
 
-          <label htmlFor="requiredField">Required</label>
-          <input
-            type="checkbox"
-            name="requiredField"
-            checked={requiredField}
-            onChange={this.setRequiredFieldState}
-          />
+            <label htmlFor="requiredField">Required</label>
+            <input
+              type="checkbox"
+              name="requiredField"
+              checked={requiredField}
+              onChange={this.setRequiredFieldState}
+            />
+          </div>
 
-          <label htmlFor="description">Description</label>
-          <textarea name="description" value={description} onChange={this.setDescriptionState} />
+          <div>
+            <label htmlFor="description">Description</label>
+            <textarea name="description" value={description} onChange={this.setDescriptionState} />
+          </div>
         </div>
       )
     }
 
     return (
       <div name={nodeId}>
-        <span>{nodePropertySchema.title || nodeProperty}</span>
-        <input
-          type="checkbox"
+        <Switch
           name={`${nodeId}.${nodeProperty}`}
-          checked={showConfigProperty}
+          on={showConfigProperty}
           onChange={this.toggleShowConfigPropertyState}
+          label={nodePropertySchema.title || nodeProperty}
         />
         {configureInput}
       </div>

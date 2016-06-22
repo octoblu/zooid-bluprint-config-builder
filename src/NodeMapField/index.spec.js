@@ -1,11 +1,14 @@
+import _ from 'lodash'
 import chai, { expect } from 'chai'
 import chaiEnzyme from 'chai-enzyme'
 import React from 'react'
 import sinon from 'sinon'
 import sinonChai from 'sinon-chai'
 import { mount, shallow } from 'enzyme'
+import Switch from 'zooid-switch'
 
 import NodeMapField from './'
+
 
 chai.use(chaiEnzyme())
 chai.use(sinonChai)
@@ -65,7 +68,7 @@ describe.only('<NodeMapField  />', () => {
         title: 'Alias',
       }
 
-      sut = shallow(
+      sut = mount(
         <NodeMapField
           nodeId="Carter-IV"
           nodePropertySchema={nodePropertySchema}
@@ -74,17 +77,17 @@ describe.only('<NodeMapField  />', () => {
       )
     })
 
-    it('should render nodePropertySchema label', () => {
-      expect(sut).to.contain('Alias')
+    it('should render the showConfigProperty Switch', () => {
+      expect(sut.find(Switch).length).to.equal(1)
     })
 
-    it('should render the showConfigProperty checkbox', () => {
-      expect(sut.find('input[type="checkbox"]').length).to.equal(1)
+    it('should render a Switch with the nodePropertySchema label', () => {
+      expect(sut.find(Switch).first()).to.have.prop('label', 'Alias')
     })
 
     it('should set showConfigProperty state to true when checkbox is checked', () => {
-      const checkbox = sut.find('input[type="checkbox"]')
-      checkbox.simulate('change', { target: { checked: true } })
+      const checkbox = sut.find(Switch).first()
+      checkbox.simulate('click')
       expect(sut).to.have.state('showConfigProperty').equal(true)
     })
   })
