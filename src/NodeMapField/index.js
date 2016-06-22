@@ -2,6 +2,7 @@ import _ from 'lodash'
 import React, { PropTypes } from 'react'
 
 import Switch from 'zooid-switch'
+import Input from 'zooid-input'
 
 const propTypes = {
   nodeId: PropTypes.string,
@@ -74,16 +75,15 @@ class NodeMapField extends React.Component {
     if (showConfigProperty) {
       configureInput = (
         <div>
-          <div>
-            <label htmlFor="configProperty">Config Name</label>
-            <input
-              type="text"
-              name="configProperty"
-              value={configName}
-              onChange={this.setConfigNameState}
-              required
-            />
+          <Input
+            name="configProperty"
+            label="Config Name"
+            value={configName}
+            onChange={this.setConfigNameState}
+            required
+          />
 
+          <div>
             <label htmlFor="requiredField">Required</label>
             <input
               type="checkbox"
@@ -93,10 +93,13 @@ class NodeMapField extends React.Component {
             />
           </div>
 
-          <div>
-            <label htmlFor="description">Description</label>
-            <textarea name="description" value={description} onChange={this.setDescriptionState} />
-          </div>
+          <Input
+            name="description"
+            value={description}
+            label="Description"
+            onChange={this.setDescriptionState}
+          />
+
         </div>
       )
     }
