@@ -9,10 +9,10 @@ const propTypes = {
 }
 
 const defaultProps = {
-  onUpdate: _.noop,
+  onUpdate: _.noop
 }
 
-class NodeMapField extends React.Component {
+class DeviceNodeMapField extends React.Component {
   constructor(props) {
     super(props)
 
@@ -110,7 +110,7 @@ class NodeMapField extends React.Component {
   }
 }
 
-NodeMapField.propTypes = propTypes
-NodeMapField.defaultProps = defaultProps
+DeviceNodeMapField.propTypes = propTypes
+DeviceNodeMapField.defaultProps = defaultProps
 
-export default NodeMapField
+export default DeviceNodeMapField
