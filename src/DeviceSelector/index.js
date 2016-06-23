@@ -19,46 +19,57 @@ class DeviceSelector extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      useExisting: false
+      shareExistingDevice: false,
+      configProperty: ''
     }
   }
   componentDidUpdate() {
-    const { useExisting } = this.state
-    const { onUpdate, uuid, nodeId, category, nodeName } = this.props
+    const { shareExistingDevice } = this.state
+    const { onUpdate, uuid, nodeId, category, nodeName, configProperty } = this.props
 
     if (category !== 'device') return null
     onUpdate({
-      shareDevice: useExisting,
+      shareDevice: shareExistingDevice,
       uuid,
       nodeId,
-      nodeName
+      nodeName,
+      configProperty
     })
   }
 
-  useExistingDevice = ({ target }) => {
-    this.setState({ useExisting: target.checked })
+  handleShareExistingDeviceToggle = ({ target }) => {
+    this.setState({ shareExistingDevice: target.checked })
+    if(target.checked){
+      this.setState({configProperty: ''})
+    }
   }
 
-  render() {
-    const { useExisting } = this.state
+  handleConfigNameChange = ( {target} ) => {
+    console.log("Target", target)
+  }
 
+  render(){
+    const {category} = this.props
+    const { shareExistingDevice, configProperty } = this.state
+    if(category !== 'device') return null
     let configName =
     <Input
-      name="configName"
-      label="Device Name"
-      placeholder="Enter You Device Name Here" />
+      name="configProperty"
+      label="Config Name"
+      value={configProperty}
+      placeholder="Enter the name of your configuration here" onChange={this.handleConfigNameChange}/>
 
-    if(useExisting) {
+    if(shareExistingDevice) {
       configName = null
     }
     return (
       <div>
-        <label htmlFor="useExisting">Share existing device?</label>
+        <label htmlFor="shareExistingDevice">Share existing device?</label>
         <input
           type="checkbox"
-          name="useExistingDevice"
-          checked={useExisting}
-          onChange={this.useExistingDevice}
+          name="shareExistingDevice"
+          checked={shareExistingDevice}
+          onChange={this.handleShareExistingDeviceToggle}
         />
       {configName}
       </div>
