@@ -4,8 +4,8 @@ import React, { PropTypes } from 'react'
 import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem'
 
 const propTypes = {
-  flow: PropTypes.object,
-  nodeSchemaMap: PropTypes.array,
+  nodes: PropTypes.array,
+  operationSchemas: PropTypes.object,
   onUpdate: PropTypes.func,
   onShareDevice: PropTypes.func,
 }
@@ -74,35 +74,34 @@ class BluprintConfigBuilder extends React.Component {
     onUpdate(this.state.configList)
   }
 
-  render() {
-    const { flow, nodeSchemaMap } = this.props
+  getNodeSchema(node) {
+    const {operationSchemas, deviceSchemas={} } = this.props
+    const nodeType = _.last(node.type.split(':'))
 
-    if (_.isEmpty(flow)) return null
-    if (_.isEmpty(flow.nodes)) return null
-    if (_.isEmpty(nodeSchemaMap)) return null
-
-    const items = _.map(flow.nodes, (node) => {
-      const nodeSchemaMapItem = _.find(nodeSchemaMap, { uuid: node.uuid })
-
-      if (_.isEmpty(nodeSchemaMapItem)) return null
-
-      let nodeSchema = nodeSchemaMapItem.schema
-      if (nodeSchemaMapItem.category === 'device') {
-        nodeSchema = nodeSchemaMapItem.schemas.message[node.selectedSchemaKey]
-        if (nodeSchema === undefined) {
-          nodeSchema = {
-            message: {
-              title: node.name,
-              type: 'object'
-            }
-          }
-        }
+    const emptySchema = {
+      message: {
+        title: node.name,
+        type: 'object'
       }
+    }
 
+    if(node.category === 'device') {
+      return deviceSchemas[nodeType] || emptySchema
+    }
+
+    return operationSchemas[nodeType]
+  }
+
+  render() {
+    const { nodes} = this.props
+
+    if (_.isEmpty(nodes)) return null
+
+    const items = _.map(nodes, (node) => {
       return (
         <BluprintConfigBuilderItem
           node={node}
-          nodeSchema={nodeSchema}
+          nodeSchema={this.getNodeSchema(node)}
           onUpdate={this.handleUpdate}
           onShareDevice={this.onShareDevice}
           key={node.id}

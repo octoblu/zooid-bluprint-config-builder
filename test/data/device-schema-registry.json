@@ -1,0 +1,92 @@
+{
+  "endo-github": {
+    "ListEventsByUser": {
+      "type": "object",
+      "title": "List Events by User",
+      "x-group-name": "Events",
+      "required": [
+        "metadata",
+        "data"
+      ],
+      "properties": {
+        "data": {
+          "type": "object",
+          "required": [
+            "username"
+          ],
+          "properties": {
+            "username": {
+              "type": "string",
+              "title": "Username",
+              "description": "Github username or organization name"
+            }
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "required": [
+            "jobType"
+          ],
+          "properties": {
+            "jobType": {
+              "type": "string",
+              "enum": [
+                "ListEventsByUser"
+              ],
+              "default": "ListEventsByUser"
+            },
+            "respondTo": {}
+          }
+        }
+      },
+      "x-form-schema": {
+        "angular": "message.ListEventsByUser.angular"
+      },
+      "x-response-schema": "ListEventsByUser"
+    },
+    "ListReposByUser": {
+      "type": "object",
+      "title": "List Repos by User",
+      "x-group-name": "Repos",
+      "required": [
+        "metadata",
+        "data"
+      ],
+      "properties": {
+        "data": {
+          "type": "object",
+          "required": [
+            "username"
+          ],
+          "properties": {
+            "username": {
+              "type": "string",
+              "title": "Username",
+              "description": "Github username or organization name"
+            }
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "required": [
+            "jobType"
+          ],
+          "properties": {
+            "jobType": {
+              "type": "string",
+              "enum": [
+                "ListReposByUser"
+              ],
+              "default": "ListReposByUser"
+            },
+            "respondTo": {}
+          }
+        }
+      },
+      "x-form-schema": {
+        "angular": "message.ListReposByUser.angular"
+      },
+      "x-response-schema": "ListReposByUser"
+    }
+  }
+}

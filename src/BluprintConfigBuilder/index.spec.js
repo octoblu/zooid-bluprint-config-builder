@@ -10,7 +10,7 @@ import BluprintConfigBuilder from './'
 import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem'
 
 import sampleFlow from '../../test/data/sample-flow.json'
-import fakeNodeSchemaMap from '../../test/data/fake-node-schema-map.json'
+import operationSchemas from '../../test/data/tool-schema-registry.json'
 
 chai.use(chaiEnzyme())
 chai.use(sinonChai)
@@ -22,12 +22,12 @@ describe('<BluprintConfigBuilder />', () => {
   })
 
   it('should render nothing when given a flow that is an empty object', () => {
-    const sut = shallow(<BluprintConfigBuilder flow={{}} />)
+    const sut = shallow(<BluprintConfigBuilder nodes={[]} />)
     expect(sut).to.be.empty
   })
 
   it('should render nothing when nodeSchemaMap prop is not passed in', () => {
-    const sut = shallow(<BluprintConfigBuilder flow={sampleFlow} />)
+    const sut = shallow(<BluprintConfigBuilder nodes={sampleFlow.nodes} />)
     expect(sut).to.be.empty
   })
 
@@ -35,18 +35,19 @@ describe('<BluprintConfigBuilder />', () => {
     it('should render the element', () => {
       const sut = shallow(
         <BluprintConfigBuilder
-          flow={sampleFlow}
-          nodeSchemaMap={fakeNodeSchemaMap}
+          nodes={sampleFlow.nodes}
+          operationSchemas={operationSchemas}
         />
       )
+
       expect(sut).to.not.be.blank
     })
 
     it('should render BluprintConfigBuilderItem for each node in the flow', () => {
       const sut = mount(
         <BluprintConfigBuilder
-          flow={sampleFlow}
-          nodeSchemaMap={fakeNodeSchemaMap}
+          nodes={sampleFlow.nodes}
+          operationSchemas={operationSchemas}
           onUpdate={_.noop}
         />)
 
@@ -87,8 +88,8 @@ describe('<BluprintConfigBuilder />', () => {
       handleUpdate = sinon.stub()
       sut = mount(
         <BluprintConfigBuilder
-          flow={sampleFlow}
-          nodeSchemaMap={fakeNodeSchemaMap}
+          nodes={sampleFlow.nodes}
+          operationSchemas={operationSchemas}
           onUpdate={handleUpdate}
         />
       )

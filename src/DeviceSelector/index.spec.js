@@ -11,7 +11,7 @@ import DeviceSelector from './'
 chai.use(chaiEnzyme())
 chai.use(sinonChai)
 
-describe.only('<DeviceSelector />', () => {
+describe('<DeviceSelector />', () => {
   describe('When shareExisting device is falsy', () => {
     it('should render the configureName input', () => {
       const sut = shallow(<DeviceSelector nodeName="Cats" nodeId="meow" />)
