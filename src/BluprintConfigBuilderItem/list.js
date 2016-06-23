@@ -5,7 +5,7 @@ import List, { ListItem } from 'zooid-list'
 import NodeMapField from '../NodeMapField'
 
 const propTypes = {
-  nodeId: PropTypes.object,
+  nodeId: PropTypes.string,
   schema: PropTypes.object,
   onUpdate: PropTypes.func,
 }
@@ -21,26 +21,24 @@ const BluprintConfigBuilderItemList = ({ nodeId, schema, onUpdate }) => {
       }
 
       return (
-        <ListItem>
+        <ListItem key={`${nodeId}-${property}`} >
           <h4> {property} </h4>
           <BluprintConfigBuilderItemList
             nodeId={nodeId}
             schema={subSchema}
             onUpdate={onPropertyUpdate}
-            key={'${nodeId}-${property}'}
           />
         </ListItem>
       )
     }
 
     return (
-      <ListItem>
+      <ListItem key={`${nodeId}-${property}`}>
         <NodeMapField
           nodeId={nodeId}
           nodeProperty={property}
           nodePropertySchema={schema.properties[property]}
           onUpdate={onUpdate}
-          key={'${nodeId}-${property}'}
         />
       </ListItem>
     )
