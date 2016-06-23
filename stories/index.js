@@ -19,6 +19,7 @@ storiesOf('BluprintConfigBuilder', module)
     <BluprintConfigBuilder
       nodes={sampleFlow.nodes}
       operationSchemas={operationSchemas}
+      deviceSchemas={deviceSchemas}
       onUpdate={ghettoAction('BluprintConfigBuilder:onUpdate')}
     />
   ))
@@ -27,6 +28,7 @@ storiesOf('BluprintConfigBuilder', module)
     <BluprintConfigBuilder
       nodes={sampleFlow.nodes}
       operationSchemas={operationSchemas}
+      deviceSchemas={deviceSchemas}
       onUpdate={ghettoAction('BluprintConfigBuilder:onUpdate')}
       onShareDevice={ghettoAction('BluprintConfigBuilder:onShareDevice')}
     />

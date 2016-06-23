@@ -13,17 +13,14 @@ const propTypes = {
 class BluprintConfigBuilder extends React.Component {
   constructor(props) {
     super(props)
-
     this.state = { configList: [] }
     this.handleUpdate = this.handleUpdate.bind(this)
   }
-
 
   onShareDevice = ({ shareDevice, nodeId, nodeName }) => {
     if (shareDevice) return this.shareDevice(nodeId)
     this.dontShareDevice(nodeId, nodeName)
   }
-
 
   shareDevice = (nodeId) => {
     const { onUpdate } = this.props
