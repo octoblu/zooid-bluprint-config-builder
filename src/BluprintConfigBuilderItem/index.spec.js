@@ -2,7 +2,7 @@ import chai, { expect } from 'chai'
 import chaiEnzyme from 'chai-enzyme'
 import React from 'react'
 import sinon from 'sinon'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 
 import BluprintConfigBuilderItem from './'
 import NodeMapField from '../NodeMapField'
@@ -54,7 +54,7 @@ describe('<BluprintConfigBuilderItem />', () => {
       }
       node = sampleFlow.nodes[0]
       onUpdate = sinon.spy()
-      sut = shallow(
+      sut = mount(
         <BluprintConfigBuilderItem
           node={node}
           nodeSchema={nodeSchema}

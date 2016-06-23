@@ -11,6 +11,7 @@ import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem'
 
 import sampleFlow from '../../test/data/sample-flow.json'
 import operationSchemas from '../../test/data/tool-schema-registry.json'
+import deviceSchemas from '../../test/data/device-schema-registry.json'
 
 chai.use(chaiEnzyme())
 chai.use(sinonChai)
@@ -26,49 +27,17 @@ describe('<BluprintConfigBuilder />', () => {
     expect(sut).to.be.empty
   })
 
-  it('should render nothing when nodeSchemaMap prop is not passed in', () => {
-    const sut = shallow(<BluprintConfigBuilder nodes={sampleFlow.nodes} />)
-    expect(sut).to.be.empty
-  })
-
-  describe('when given a flow with nodes', () => {
+  describe('when given nodes', () => {
     it('should render the element', () => {
       const sut = shallow(
         <BluprintConfigBuilder
           nodes={sampleFlow.nodes}
           operationSchemas={operationSchemas}
+          deviceSchemas={deviceSchemas}
         />
       )
 
       expect(sut).to.not.be.blank
-    })
-
-    it('should render BluprintConfigBuilderItem for each node in the flow', () => {
-      const sut = mount(
-        <BluprintConfigBuilder
-          nodes={sampleFlow.nodes}
-          operationSchemas={operationSchemas}
-          onUpdate={_.noop}
-        />)
-
-      _.forEach(sampleFlow.nodes, (node) => {
-        const nodeSchemaMapItem = _.find(fakeNodeSchemaMap, { uuid: node.uuid })
-        let nodeSchema
-        if (nodeSchemaMapItem.category === 'device') {
-          nodeSchema = nodeSchemaMapItem.schemas.message[node.selectedSchemaKey]
-        } else {
-          nodeSchema = nodeSchemaMapItem.schema
-        }
-
-        expect(sut).to.contain(
-          <BluprintConfigBuilderItem
-            node={node}
-            nodeSchema={nodeSchema}
-            onUpdate={sut.instance().handleUpdate}
-            key={node.id}
-          />
-        )
-      })
     })
   })
 
@@ -90,6 +59,7 @@ describe('<BluprintConfigBuilder />', () => {
         <BluprintConfigBuilder
           nodes={sampleFlow.nodes}
           operationSchemas={operationSchemas}
+          deviceSchemas={deviceSchemas}
           onUpdate={handleUpdate}
         />
       )

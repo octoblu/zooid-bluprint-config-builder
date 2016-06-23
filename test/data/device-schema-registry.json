@@ -1,4 +1,7 @@
 {
+  "generic": {
+    "example-message-01": {}
+  },
   "endo-github": {
     "ListEventsByUser": {
       "type": "object",

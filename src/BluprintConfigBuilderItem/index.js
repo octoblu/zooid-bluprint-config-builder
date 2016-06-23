@@ -1,7 +1,5 @@
 import _ from 'lodash'
 import React, { PropTypes } from 'react'
-
-import Heading from 'zooid-heading'
 import DeviceSelector from '../DeviceSelector'
 import BluprintConfigBuilderItemList from './list'
 
