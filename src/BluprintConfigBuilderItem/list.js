@@ -13,9 +13,24 @@ const propTypes = {
 const BluprintConfigBuilderItemList = ({ nodeId, schema, onUpdate }) => {
   const renderedProperties = _.map(_.keys(schema.properties), (property) => {
     const subSchema = schema.properties[property]
-    console.log(nodeId, schema)
     if (subSchema.type === 'object') {
-      return <ListItem> <h2> I Should make a new BluprintConfigBuilderItemList </h2> </ListItem>
+      const onPropertyUpdate = (update) => {
+        const newNodeProperty = `${property}.${update.nodeProperty}`
+        const newUpdate = _.defaults({nodeProperty: newNodeProperty}, update)
+        onUpdate(newUpdate)
+      }
+
+      return (
+        <ListItem>
+          <h4> {property} </h4>
+          <BluprintConfigBuilderItemList
+            nodeId={nodeId}
+            schema={subSchema}
+            onUpdate={onPropertyUpdate}
+            key={'${nodeId}-${property}'}
+          />
+        </ListItem>
+      )
     }
 
     return (
@@ -25,6 +40,7 @@ const BluprintConfigBuilderItemList = ({ nodeId, schema, onUpdate }) => {
           nodeProperty={property}
           nodePropertySchema={schema.properties[property]}
           onUpdate={onUpdate}
+          key={'${nodeId}-${property}'}
         />
       </ListItem>
     )
