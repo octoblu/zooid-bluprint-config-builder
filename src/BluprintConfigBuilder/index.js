@@ -93,7 +93,7 @@ class BluprintConfigBuilder extends React.Component {
           nodeSchema = {
             message: {
               title: node.name,
-              type: "object"
+              type: 'object'
             }
           }
         }

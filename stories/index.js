@@ -4,6 +4,7 @@ import { storiesOf } from '@kadira/storybook'
 import BluprintConfigBuilder from '../src'
 import DeviceSelector from '../src/DeviceSelector'
 import sampleFlow from '../test/data/sample-flow.json'
+import endoGithubFlow from '../test/data/endo-github-flow.json'
 import fakeNodeSchemaMap from '../test/data/fake-node-schema-map.json'
 
 
@@ -18,6 +19,12 @@ storiesOf('BluprintConfigBuilder', module)
     <BluprintConfigBuilder
       flow={sampleFlow}
       nodeSchemaMap={fakeNodeSchemaMap}
+      onUpdate={ghettoAction('BluprintConfigBuilder:onUpdate')}
+    />
+  ))
+  .add('Deep Properties', () => (
+    <BluprintConfigBuilder
+      flow={endoGithubFlow}
       onUpdate={ghettoAction('BluprintConfigBuilder:onUpdate')}
     />
   ))
