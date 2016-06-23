@@ -1,0 +1,118 @@
+[
+  {
+    "uuid": "37f0a74a-2f17-11e4-9617-a6c5e4d22fb7",
+    "category": "operation",
+    "schema": {
+      "title": "Trigger",
+      "type": "object",
+      "properties": {
+        "alias": {
+          "type": "string",
+          "title": "Alias"
+        },
+        "payloadType": {
+          "type": "string",
+          "title": "Payload Type",
+          "enum": [
+            "date",
+            "none",
+            "string"
+          ]
+        },
+        "payload": {
+          "type": "string",
+          "title": "Payload"
+        }
+      }
+    }
+  },
+  {
+    "uuid": "f478c68c-3107-4f19-b04d-cb1b3f8ec79d",
+    "category": "device",
+    "schemas": {
+      "message": {
+        "$ref": "https://endo-github.octoblu.dev/v1/message-schema"
+      }
+    }
+  },
+  {
+    "uuid": "99b84aa0-338b-11e4-8c21-0800200c9a66",
+    "category": "operation",
+    "schema": {
+      "title": "Demultiplex",
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "title": "Value"
+        }
+      }
+    }
+  },
+  {
+    "uuid": "37f0b88e-2f17-11e4-9617-a6c5e4d22fb7",
+    "category": "operation"
+  },
+  {
+    "uuid": "2bebd428-4818-48ea-b1f5-88a32199f17b",
+    "category": "operation",
+    "schema": {
+      "title": "Equal",
+      "type": "object",
+      "properties": {
+        "left": {
+          "type": "string",
+          "title": "Left"
+        },
+        "right": {
+          "type": "string",
+          "title": "Right"
+        }
+      }
+    }
+  },
+  {
+    "uuid": "2bebd428-4818-48ea-b1f5-88a32199f17b",
+    "category": "operation",
+    "schema": {
+      "title": "Equal",
+      "type": "object",
+      "properties": {
+        "left": {
+          "type": "string",
+          "title": "Left"
+        },
+        "right": {
+          "type": "string",
+          "title": "Right"
+        }
+      }
+    }
+  },
+  {
+    "uuid": "2bebd428-4818-48ea-b1f5-88a32199f17b",
+    "category": "operation",
+    "schema": {
+      "title": "Equal",
+      "type": "object",
+      "properties": {
+        "left": {
+          "type": "string",
+          "title": "Left"
+        },
+        "right": {
+          "type": "string",
+          "title": "Right"
+        }
+      }
+    }
+  },
+  {
+    "uuid": "37f0b88e-2f17-11e4-9617-a6c5e4d22fb7",
+    "category": "operation"
+  },
+  {
+    "uuid": "37f0b88e-2f17-11e4-9617-a6c5e4d22fb7",
+    "category": "operation"
+  }
+]
