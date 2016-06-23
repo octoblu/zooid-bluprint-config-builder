@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
+import Input from 'zooid-input'
 
 const propTypes = {
   nodeId: PropTypes.string.isRequired,
@@ -14,10 +15,13 @@ const defaultProps = {
 }
 
 class DeviceSelector extends React.Component {
-  state = {
-    useExisting: false,
-  }
 
+  constructor(props){
+    super(props)
+    this.state = {
+      useExisting: false
+    }
+  }
   componentDidUpdate() {
     const { useExisting } = this.state
     const { onUpdate, uuid, nodeId, category, nodeName } = this.props
@@ -37,10 +41,16 @@ class DeviceSelector extends React.Component {
 
   render() {
     const { useExisting } = this.state
-    const { uuid } = this.props
 
-    if (this.props.category !== 'device') return null
+    let configName =
+    <Input
+      name="configName"
+      label="Device Name"
+      placeholder="Enter You Device Name Here" />
 
+    if(useExisting) {
+      configName = null
+    }
     return (
       <div>
         <label htmlFor="useExisting">Share existing device?</label>
@@ -50,7 +60,7 @@ class DeviceSelector extends React.Component {
           checked={useExisting}
           onChange={this.useExistingDevice}
         />
-        {useExisting && <a>{uuid}</a>}
+      {configName}
       </div>
     )
   }
