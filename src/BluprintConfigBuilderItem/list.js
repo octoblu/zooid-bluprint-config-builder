@@ -13,7 +13,7 @@ const propTypes = {
 const BluprintConfigBuilderItemList = ({ nodeId, schema, onUpdate }) => {
   const renderedProperties = _.map(_.keys(schema.properties), (property) => {
     const subSchema = schema.properties[property]
-    console.log(subSchema)
+    console.log(nodeId, schema)
     if (subSchema.type === 'object') {
       return <ListItem> <h2> I Should make a new BluprintConfigBuilderItemList </h2> </ListItem>
     }
