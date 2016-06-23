@@ -1,0 +1,528 @@
+{
+  "flowId": "fd201d7a-5f65-49f0-bd0b-9623c2ea0e02",
+  "name": "Flow fd201d7a",
+  "description": null,
+  "nodes": [
+    {
+      "name": "Trigger",
+      "class": "trigger",
+      "helpText": "Send a static message. Can also be triggered from other flows",
+      "documentation": "https://octoblu-designer.readme.io/docs/trigger",
+      "category": "operation",
+      "uuid": "37f0a74a-2f17-11e4-9617-a6c5e4d22fb7",
+      "type": "operation:trigger",
+      "defaults": {
+        "payloadType": "date",
+        "once": false
+      },
+      "input": 0,
+      "output": 1,
+      "formTemplatePath": "/pages/node_forms/button_form.html",
+      "nanocyte": {
+        "name": "nanocyte-node-trigger"
+      },
+      "logo": "https://icons.octoblu.com/operation/trigger.svg",
+      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
+      "id": "4240fa10-396a-11e6-9a46-0518f4285907",
+      "payloadType": "date",
+      "once": false,
+      "staticMessage": {},
+      "x": 105.83256530761719,
+      "y": 304.3900146484375,
+      "needsConfiguration": false,
+      "needsSetup": false
+    },
+    {
+      "class": "endo-github",
+      "logo": "https://s3-us-west-2.amazonaws.com/octoblu-icons/device/github.svg",
+      "input": 1,
+      "output": 1,
+      "helpText": "The (very) Beta Github Channel",
+      "formTemplatePath": "/pages/node_forms/device_form.html",
+      "category": "device",
+      "useStaticMessage": true,
+      "noPayloadWrapper": true,
+      "online": true,
+      "name": "Dev Github",
+      "type": "endo-github",
+      "meshblu": {
+        "hash": "Rtolm6zC24cNmzD2xq8qo4d+NlNCw5NHnNksHfI8CGE="
+      },
+      "uuid": "f478c68c-3107-4f19-b04d-cb1b3f8ec79d",
+      "defaults": {
+        "category": "device",
+        "useStaticMessage": true,
+        "noPayloadWrapper": true,
+        "online": true,
+        "name": "Dev Github",
+        "type": "endo-github",
+        "logo": "https://s3-us-west-2.amazonaws.com/octoblu-icons/device/github.svg",
+        "meshblu": {
+          "hash": "BGPb1xQLpkQxtZVREJGKTA49XXBnoHvNpdu5Yp5M7cI="
+        },
+        "uuid": "f478c68c-3107-4f19-b04d-cb1b3f8ec79d",
+        "nodeType": {
+          "resourceType": "node-type",
+          "_id": "endo-github",
+          "category": "endo",
+          "categories": [
+            "Social"
+          ],
+          "helpText": "The (very) Beta Github Channel",
+          "enabled": true,
+          "name": "Github Beta",
+          "type": "endo-github",
+          "logo": "https://s3-us-west-2.amazonaws.com/octoblu-icons/device/github.svg",
+          "url": "http://endo-github.octoblu.dev/auth/octoblu"
+        }
+      },
+      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
+      "id": "459973e0-396a-11e6-9a46-0518f4285907",
+      "nodeType": {
+        "resourceType": "node-type",
+        "_id": "endo-github",
+        "category": "endo",
+        "categories": [
+          "Social"
+        ],
+        "helpText": "The (very) Beta Github Channel",
+        "enabled": true,
+        "name": "Github Beta",
+        "type": "endo-github",
+        "logo": "https://s3-us-west-2.amazonaws.com/octoblu-icons/device/github.svg",
+        "url": "http://endo-github.octoblu.dev/auth/octoblu"
+      },
+      "staticMessage": {
+        "metadata": {
+          "jobType": "ListEventsByUser",
+          "respondTo": {
+            "flowId": "fd201d7a-5f65-49f0-bd0b-9623c2ea0e02",
+            "nodeId": "459973e0-396a-11e6-9a46-0518f4285907"
+          }
+        },
+        "data": {
+          "username": "octoblu"
+        }
+      },
+      "x": 224.19683837890625,
+      "y": 356.9427795410156,
+      "needsConfiguration": false,
+      "needsSetup": false,
+      "selectedSchemaKey": "ListEventsByUser"
+    },
+    {
+      "name": "Demultiplex",
+      "class": "demultiplex",
+      "helpText": "Break an array of values into discreet messages",
+      "documentation": "https://octoblu-designer.readme.io/docs/demultiplex",
+      "type": "operation:demultiplex",
+      "category": "operation",
+      "uuid": "99b84aa0-338b-11e4-8c21-0800200c9a66",
+      "defaults": {},
+      "input": 1,
+      "output": 1,
+      "formTemplatePath": "/pages/node_forms/demultiplexer_form.html",
+      "nanocyte": {
+        "name": "nanocyte-node-demultiplex"
+      },
+      "logo": "https://icons.octoblu.com/operation/demultiplex.svg",
+      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
+      "id": "4e6c8430-396a-11e6-9a46-0518f4285907",
+      "staticMessage": {},
+      "x": 344.2485656738281,
+      "y": 293.0598449707031,
+      "needsConfiguration": false,
+      "needsSetup": false,
+      "value": "{{msg.data}}"
+    },
+    {
+      "name": "Debug",
+      "class": "debug",
+      "helpText": "Display the contents of the messages it receives in the debug panel",
+      "documentation": "https://octoblu-designer.readme.io/docs/debug",
+      "category": "operation",
+      "uuid": "37f0b88e-2f17-11e4-9617-a6c5e4d22fb7",
+      "type": "operation:debug",
+      "defaults": {
+        "active": true,
+        "debug": true,
+        "complete": false
+      },
+      "color": "#87a980",
+      "input": 1,
+      "output": 0,
+      "align": "right",
+      "formTemplatePath": "/pages/node_forms/debug_form.html",
+      "nanocyte": {
+        "name": "nanocyte-node-debug"
+      },
+      "logo": "https://icons.octoblu.com/operation/debug.svg",
+      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
+      "id": "518e3690-396a-11e6-9a46-0518f4285907",
+      "active": true,
+      "debug": true,
+      "complete": false,
+      "staticMessage": {},
+      "x": 686.186767578125,
+      "y": 109.85685729980469,
+      "needsConfiguration": false,
+      "needsSetup": false
+    },
+    {
+      "name": "ReleaseEvent",
+      "class": "equal",
+      "helpText": "Filter out messages that do not pass an equality test. Reference incoming messages using {{msg.values}}  \n  \nSupported inputs include: arrays, date, objects, numbers, and strings",
+      "documentation": "https://octoblu-designer.readme.io/docs/equal",
+      "category": "operation",
+      "uuid": "2bebd428-4818-48ea-b1f5-88a32199f17b",
+      "type": "operation:equal",
+      "defaults": {
+        "value": 0
+      },
+      "input": 1,
+      "output": 1,
+      "formTemplatePath": "/pages/node_forms/equal_form.html",
+      "nanocyte": {
+        "name": "nanocyte-node-equal"
+      },
+      "logo": "https://icons.octoblu.com/operation/equal.svg",
+      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
+      "id": "be2c4df0-396a-11e6-9a46-0518f4285907",
+      "value": 0,
+      "staticMessage": {},
+      "x": 508.6671142578125,
+      "y": 120.82646179199219,
+      "needsConfiguration": false,
+      "needsSetup": false,
+      "left": "{{msg.type}}",
+      "right": "ReleaseEvent"
+    },
+    {
+      "name": "CreateEvent",
+      "class": "equal",
+      "helpText": "Filter out messages that do not pass an equality test. Reference incoming messages using {{msg.values}}  \n  \nSupported inputs include: arrays, date, objects, numbers, and strings",
+      "documentation": "https://octoblu-designer.readme.io/docs/equal",
+      "category": "operation",
+      "uuid": "2bebd428-4818-48ea-b1f5-88a32199f17b",
+      "type": "operation:equal",
+      "defaults": {
+        "value": 0
+      },
+      "input": 1,
+      "output": 1,
+      "formTemplatePath": "/pages/node_forms/equal_form.html",
+      "nanocyte": {
+        "name": "nanocyte-node-equal"
+      },
+      "logo": "https://icons.octoblu.com/operation/equal.svg",
+      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
+      "id": "d4f85560-396a-11e6-9a46-0518f4285907",
+      "value": 0,
+      "staticMessage": {},
+      "needsConfiguration": false,
+      "needsSetup": false,
+      "left": "{{msg.type}}",
+      "right": "CreateEvent",
+      "x": 493.93701171875,
+      "y": 305.41339111328125
+    },
+    {
+      "name": "PushEvent",
+      "class": "equal",
+      "helpText": "Filter out messages that do not pass an equality test. Reference incoming messages using {{msg.values}}  \n  \nSupported inputs include: arrays, date, objects, numbers, and strings",
+      "documentation": "https://octoblu-designer.readme.io/docs/equal",
+      "category": "operation",
+      "uuid": "2bebd428-4818-48ea-b1f5-88a32199f17b",
+      "type": "operation:equal",
+      "defaults": {
+        "value": 0
+      },
+      "input": 1,
+      "output": 1,
+      "formTemplatePath": "/pages/node_forms/equal_form.html",
+      "nanocyte": {
+        "name": "nanocyte-node-equal"
+      },
+      "logo": "https://icons.octoblu.com/operation/equal.svg",
+      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
+      "id": "d6b15000-396a-11e6-9a46-0518f4285907",
+      "value": 0,
+      "staticMessage": {},
+      "needsConfiguration": false,
+      "needsSetup": false,
+      "left": "{{msg.type}}",
+      "right": "PushEvent",
+      "x": 530.302001953125,
+      "y": 463.7622375488281
+    },
+    {
+      "name": "Debug",
+      "class": "debug",
+      "helpText": "Display the contents of the messages it receives in the debug panel",
+      "documentation": "https://octoblu-designer.readme.io/docs/debug",
+      "category": "operation",
+      "uuid": "37f0b88e-2f17-11e4-9617-a6c5e4d22fb7",
+      "type": "operation:debug",
+      "defaults": {
+        "active": true,
+        "debug": true,
+        "complete": false
+      },
+      "color": "#87a980",
+      "input": 1,
+      "output": 0,
+      "align": "right",
+      "formTemplatePath": "/pages/node_forms/debug_form.html",
+      "nanocyte": {
+        "name": "nanocyte-node-debug"
+      },
+      "logo": "https://icons.octoblu.com/operation/debug.svg",
+      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
+      "id": "f8689960-396a-11e6-9a46-0518f4285907",
+      "active": true,
+      "debug": true,
+      "complete": false,
+      "staticMessage": {},
+      "needsConfiguration": false,
+      "needsSetup": false,
+      "x": 671.9971923828125,
+      "y": 295.3727722167969
+    },
+    {
+      "name": "Debug",
+      "class": "debug",
+      "helpText": "Display the contents of the messages it receives in the debug panel",
+      "documentation": "https://octoblu-designer.readme.io/docs/debug",
+      "category": "operation",
+      "uuid": "37f0b88e-2f17-11e4-9617-a6c5e4d22fb7",
+      "type": "operation:debug",
+      "defaults": {
+        "active": true,
+        "debug": true,
+        "complete": false
+      },
+      "color": "#87a980",
+      "input": 1,
+      "output": 0,
+      "align": "right",
+      "formTemplatePath": "/pages/node_forms/debug_form.html",
+      "nanocyte": {
+        "name": "nanocyte-node-debug"
+      },
+      "logo": "https://icons.octoblu.com/operation/debug.svg",
+      "omniboxItemTemplateUrl": "/pages/omnibox-flow-node.html",
+      "id": "fa7afea0-396a-11e6-9a46-0518f4285907",
+      "active": true,
+      "debug": true,
+      "complete": false,
+      "staticMessage": {},
+      "needsConfiguration": false,
+      "needsSetup": false,
+      "x": 693.5443725585938,
+      "y": 474.58221435546875
+    }
+  ],
+  "links": [
+    {
+      "from": "4240fa10-396a-11e6-9a46-0518f4285907",
+      "fromPort": 0,
+      "to": "459973e0-396a-11e6-9a46-0518f4285907",
+      "toPort": 0
+    },
+    {
+      "from": "459973e0-396a-11e6-9a46-0518f4285907",
+      "fromPort": 0,
+      "to": "4e6c8430-396a-11e6-9a46-0518f4285907",
+      "toPort": 0
+    },
+    {
+      "from": "4e6c8430-396a-11e6-9a46-0518f4285907",
+      "fromPort": 0,
+      "to": "be2c4df0-396a-11e6-9a46-0518f4285907",
+      "toPort": 0
+    },
+    {
+      "from": "4e6c8430-396a-11e6-9a46-0518f4285907",
+      "fromPort": 0,
+      "to": "d4f85560-396a-11e6-9a46-0518f4285907",
+      "toPort": 0
+    },
+    {
+      "from": "4e6c8430-396a-11e6-9a46-0518f4285907",
+      "fromPort": 0,
+      "to": "d6b15000-396a-11e6-9a46-0518f4285907",
+      "toPort": 0
+    },
+    {
+      "from": "d6b15000-396a-11e6-9a46-0518f4285907",
+      "fromPort": 0,
+      "to": "fa7afea0-396a-11e6-9a46-0518f4285907",
+      "toPort": 0
+    },
+    {
+      "from": "d4f85560-396a-11e6-9a46-0518f4285907",
+      "fromPort": 0,
+      "to": "f8689960-396a-11e6-9a46-0518f4285907",
+      "toPort": 0
+    },
+    {
+      "from": "be2c4df0-396a-11e6-9a46-0518f4285907",
+      "fromPort": 0,
+      "to": "518e3690-396a-11e6-9a46-0518f4285907",
+      "toPort": 0
+    }
+  ],
+  "hashable": true,
+  "devicesWithPermissions": [
+    {
+      "device": {
+        "online": true,
+        "name": "Dev Github",
+        "type": "endo-github",
+        "logo": "https://s3-us-west-2.amazonaws.com/octoblu-icons/device/github.svg",
+        "owner": "fb41f103-1b10-4a74-a956-0bd75bfc1985",
+        "octoblu": {
+          "flow": {
+            "forwardMetadata": true
+          }
+        },
+        "schemas": {
+          "version": "2.0.0",
+          "form": {
+            "$ref": "https://endo-github.octoblu.dev/v1/form-schema"
+          },
+          "message": {
+            "$ref": "https://endo-github.octoblu.dev/v1/message-schema"
+          },
+          "response": {
+            "$ref": "https://endo-github.octoblu.dev/v1/response-schema"
+          }
+        },
+        "meshblu": {
+          "version": "2.0.0",
+          "whitelists": {
+            "broadcast": {
+              "as": [
+                {
+                  "uuid": "fb41f103-1b10-4a74-a956-0bd75bfc1985"
+                }
+              ],
+              "received": [
+                {
+                  "uuid": "fb41f103-1b10-4a74-a956-0bd75bfc1985"
+                }
+              ],
+              "sent": [
+                {
+                  "uuid": "fb41f103-1b10-4a74-a956-0bd75bfc1985"
+                },
+                {
+                  "uuid": "fd201d7a-5f65-49f0-bd0b-9623c2ea0e02"
+                }
+              ]
+            },
+            "configure": {
+              "as": [
+                {
+                  "uuid": "fb41f103-1b10-4a74-a956-0bd75bfc1985"
+                }
+              ],
+              "received": [
+                {
+                  "uuid": "fb41f103-1b10-4a74-a956-0bd75bfc1985"
+                }
+              ],
+              "sent": [
+                {
+                  "uuid": "fb41f103-1b10-4a74-a956-0bd75bfc1985"
+                }
+              ],
+              "update": [
+                {
+                  "uuid": "fb41f103-1b10-4a74-a956-0bd75bfc1985"
+                }
+              ]
+            },
+            "discover": {
+              "view": [
+                {
+                  "uuid": "fb41f103-1b10-4a74-a956-0bd75bfc1985"
+                }
+              ],
+              "as": [
+                {
+                  "uuid": "fb41f103-1b10-4a74-a956-0bd75bfc1985"
+                }
+              ]
+            },
+            "message": {
+              "as": [
+                {
+                  "uuid": "fb41f103-1b10-4a74-a956-0bd75bfc1985"
+                },
+                {
+                  "uuid": "50d13a1a-b893-4f5d-aa01-975eaa3614c1"
+                }
+              ],
+              "received": [
+                {
+                  "uuid": "fb41f103-1b10-4a74-a956-0bd75bfc1985"
+                },
+                {
+                  "uuid": "50d13a1a-b893-4f5d-aa01-975eaa3614c1"
+                }
+              ],
+              "sent": [
+                {
+                  "uuid": "fb41f103-1b10-4a74-a956-0bd75bfc1985"
+                }
+              ],
+              "from": [
+                {
+                  "uuid": "fb41f103-1b10-4a74-a956-0bd75bfc1985"
+                },
+                {
+                  "uuid": "fd201d7a-5f65-49f0-bd0b-9623c2ea0e02"
+                }
+              ]
+            }
+          },
+          "createdAt": "2016-06-23T10:44:45-07:00",
+          "hash": "BGPb1xQLpkQxtZVREJGKTA49XXBnoHvNpdu5Yp5M7cI=",
+          "updatedAt": "2016-06-23T10:45:57-07:00"
+        },
+        "uuid": "f478c68c-3107-4f19-b04d-cb1b3f8ec79d",
+        "token": "$2a$08$Hi4OGrvttXX6z4xhmr8Wsu6vd8C7fTLZsMGwhjILhvssWYeCNN.Ta",
+        "options": {}
+      },
+      "permissions": {
+        "messageToFlow": true,
+        "messageFromFlow": true,
+        "subscribeBroadcastSent": true
+      },
+      "$$hashKey": "object:5491"
+    },
+    {
+      "device": {
+        "uuid": "b560b6ee-c264-4ed9-b98e-e3376ce6ce64",
+        "type": "trigger-service",
+        "discoverWhitelist": [
+          "*"
+        ],
+        "configureWhitelist": [],
+        "receiveWhitelist": [],
+        "sendWhitelist": [],
+        "name": "Trigger Service",
+        "token": "$2a$10$SNwbidQ9LRL.m2Z0zgbJjOyu/BGNImM4.hll4AghE/ZbOISg3xBUG",
+        "online": true,
+        "logo": "https://icons.octoblu.com/trigger-service.svg"
+      },
+      "permissions": {
+        "messageToFlow": true
+      },
+      "$$hashKey": "object:5492"
+    }
+  ],
+  "devicesNeedingPermission": [],
+  "pendingPermissions": false
+}

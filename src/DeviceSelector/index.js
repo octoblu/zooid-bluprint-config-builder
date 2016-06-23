@@ -39,13 +39,6 @@ class DeviceSelector extends React.Component {
     const { useExisting } = this.state
     const { uuid } = this.props
 
-    let userDevices = null
-    if (useExisting) {
-      userDevices = (
-        <a>{uuid}</a>
-      )
-    }
-
     if (this.props.category !== 'device') return null
 
     return (
@@ -57,7 +50,7 @@ class DeviceSelector extends React.Component {
           checked={useExisting}
           onChange={this.useExistingDevice}
         />
-        {userDevices}
+        {useExisting && <a>{uuid}</a>}
       </div>
     )
   }

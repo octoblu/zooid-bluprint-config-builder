@@ -4,8 +4,9 @@ import { storiesOf } from '@kadira/storybook'
 import BluprintConfigBuilder from '../src'
 import DeviceSelector from '../src/DeviceSelector'
 import sampleFlow from '../test/data/sample-flow.json'
-import endoGithubFlow from '../test/data/endo-github-flow.json'
+import githubSampleFlow from '../test/data/sample-flow-github.json'
 import fakeNodeSchemaMap from '../test/data/fake-node-schema-map.json'
+import fakeNodeSchemaGithubMap from '../test/data/fake-node-schema-map-github.json'
 
 
 function ghettoAction(label) {
@@ -19,12 +20,6 @@ storiesOf('BluprintConfigBuilder', module)
     <BluprintConfigBuilder
       flow={sampleFlow}
       nodeSchemaMap={fakeNodeSchemaMap}
-      onUpdate={ghettoAction('BluprintConfigBuilder:onUpdate')}
-    />
-  ))
-  .add('Deep Properties', () => (
-    <BluprintConfigBuilder
-      flow={endoGithubFlow}
       onUpdate={ghettoAction('BluprintConfigBuilder:onUpdate')}
     />
   ))
@@ -53,5 +48,13 @@ storiesOf('DeviceSelector', module)
       type="operator:trigger"
       uuid="some-device-uuid"
       onUpdate={ghettoAction('DeviceSelector:onUpdate')}
+    />
+  ))
+  .add('Flow with endo node', ()=> (
+    <BluprintConfigBuilder
+      flow={githubSampleFlow}
+      nodeSchemaMap={fakeNodeSchemaGithubMap}
+      onUpdate={ghettoAction('BluprintConfigBuilder:onUpdate')}
+      onShareDevice={ghettoAction('BluprintConfigBuilder:onShareDevice')}
     />
   ))
