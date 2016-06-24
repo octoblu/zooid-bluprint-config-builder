@@ -1,6 +1,6 @@
 {
   "name": "zooid-ui-bluprint-config-builder",
-  "version": "4.0.2",
+  "version": "4.0.4",
   "description": "BluprintConfigBuilder",
   "main": "dist/bundle.js",
   "scripts": {
@@ -78,16 +78,15 @@
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0",
-    "webpack-dev-server": "^1.14.1",
-    "zooid-list": "^1.1.0"
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
     "lodash": "^4.13.1",
     "react": "^15.0.1",
     "react-jsonschema-form": "^0.34.1",
     "zooid-heading": "^1.0.5",
-    "zooid-input": "^1.0.3",
-    "zooid-list": "^1.0.0",
+    "zooid-input": "^1.2.0",
+    "zooid-list": "^1.2.0",
     "zooid-switch": "^2.0.0",
     "zooid-ui": "^6.0.0"
   }

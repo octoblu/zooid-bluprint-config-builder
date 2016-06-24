@@ -4,6 +4,8 @@ import React, { PropTypes } from 'react'
 import Switch from 'zooid-switch'
 import Input from 'zooid-input'
 
+import styles from './styles.css'
+
 const propTypes = {
   nodeId: PropTypes.string,
   nodePropertySchema: PropTypes.object,
@@ -71,10 +73,10 @@ class NodeMapField extends React.Component {
 
     const { configName, description, requiredField, showConfigProperty } = this.state
 
-    let configureInput = null
+    let configureForm = null
     if (showConfigProperty) {
-      configureInput = (
-        <div>
+      configureForm = (
+        <div className={styles.configureForm}>
           <Input
             name="configProperty"
             label="Config Name"
@@ -112,7 +114,7 @@ class NodeMapField extends React.Component {
           onChange={this.toggleShowConfigPropertyState}
           label={nodePropertySchema.title || nodeProperty}
         />
-        {configureInput}
+      {configureForm}
       </div>
     )
   }
