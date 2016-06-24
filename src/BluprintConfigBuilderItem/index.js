@@ -3,6 +3,8 @@ import React, { PropTypes } from 'react'
 import DeviceSelector from '../DeviceSelector'
 import BluprintConfigBuilderItemList from './list'
 
+import styles from './styles.css'
+
 const propTypes = {
   node: PropTypes.object,
   nodeSchema: PropTypes.object,
@@ -18,7 +20,7 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate, onShareDevice }
 
   return (
     <div>
-      <div>{nodeSchema.title || node.name}</div>
+      <div className={styles.nodeName}>{nodeSchema.title || node.name}</div>
 
       <DeviceSelector
         nodeId={node.id}
