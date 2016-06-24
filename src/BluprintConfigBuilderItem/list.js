@@ -14,6 +14,7 @@ const BluprintConfigBuilderItemList = ({ nodeId, schema, onUpdate }) => {
   const renderedProperties = _.map(_.keys(schema.properties), (property) => {
     const subSchema = schema.properties[property]
     if (subSchema.type === 'object') {
+
       const onPropertyUpdate = (update) => {
         const newNodeProperty = `${property}.${update.nodeProperty}`
         const newUpdate = _.defaults({nodeProperty: newNodeProperty}, update)

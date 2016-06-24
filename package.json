@@ -82,8 +82,6 @@
     "zooid-list": "^1.1.0"
   },
   "dependencies": {
-    "json-schema-faker": "^0.3.3",
-    "json-schema-instantiator": "^0.4.0",
     "lodash": "^4.13.1",
     "react": "^15.0.1",
     "react-jsonschema-form": "^0.34.1",
