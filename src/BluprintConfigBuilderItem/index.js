@@ -17,6 +17,15 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate, onShareDevice }
   if (_.isEmpty(nodeSchema)) return null
 
   const { category, type, uuid } = node
+  const onPropertyUpdate = (update) => {
+    if (category !== 'device') {
+      return onUpdate(update)
+    }
+
+    const newNodeProperty = `staticMessage.${update.nodeProperty}`
+    const newUpdate = _.defaults({nodeProperty: newNodeProperty}, update)
+    onUpdate(newUpdate)
+  }
 
   return (
     <div>
@@ -34,7 +43,7 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate, onShareDevice }
       <BluprintConfigBuilderItemList
         nodeId={node.id}
         schema={nodeSchema}
-        onUpdate={onUpdate}
+        onUpdate={onPropertyUpdate}
       />
 
     </div>

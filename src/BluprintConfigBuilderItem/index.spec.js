@@ -63,33 +63,5 @@ describe('<BluprintConfigBuilderItem />', () => {
       )
     })
 
-    it('should render NodeMapFields for each property', () => {
-      expect(sut).to.contain(
-        <NodeMapField
-          nodeId={node.id}
-          nodeProperty="alias"
-          nodePropertySchema={nodeSchema.properties.alias}
-          onUpdate={onUpdate}
-        />
-      )
-
-      expect(sut).to.contain(
-        <NodeMapField
-          nodeId={node.id}
-          nodeProperty="payload"
-          nodePropertySchema={nodeSchema.properties.payload}
-          onUpdate={onUpdate}
-        />
-      )
-
-      expect(sut).to.contain(
-        <NodeMapField
-          nodeId={node.id}
-          nodeProperty="payloadType"
-          nodePropertySchema={nodeSchema.properties.payloadType}
-          onUpdate={onUpdate}
-        />
-      )
-    })
   })
 })
