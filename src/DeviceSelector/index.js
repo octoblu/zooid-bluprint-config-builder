@@ -24,8 +24,8 @@ class DeviceSelector extends React.Component {
     }
   }
   componentDidUpdate() {
-    const { shareExistingDevice } = this.state
-    const { onUpdate, uuid, nodeId, category, nodeName, configProperty } = this.props
+    const { shareExistingDevice, configProperty } = this.state
+    const { onUpdate, uuid, nodeId, category, nodeName } = this.props
 
     if (category !== 'device') return null
     onUpdate({
@@ -45,7 +45,7 @@ class DeviceSelector extends React.Component {
   }
 
   handleConfigNameChange = ( {target} ) => {
-    console.log("Target", target)
+    this.setState({configProperty: target.value})
   }
 
   render(){
