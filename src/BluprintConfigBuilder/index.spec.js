@@ -45,7 +45,20 @@ describe('<BluprintConfigBuilder />', () => {
     let config
     let handleUpdate
     let sut
-
+    const configSchema = {
+      type: 'object',
+      properties: {
+        asd: {
+          type: 'string',
+          'x-node-map': [
+            {
+              id: 'ff1123a0',
+              property: 'key',
+            },
+          ],
+        },
+      },
+    }
     beforeEach(() => {
       config = {
         configureProperty: 'asd',
@@ -66,12 +79,8 @@ describe('<BluprintConfigBuilder />', () => {
       sut.instance().handleUpdate(config)
     })
 
-    it('should call onUpdate', () => {
-      expect(handleUpdate).to.have.been.called
-    })
-
-    it('should add config to configList state if it does not exist', () => {
-      expect(sut.state('configList')).to.deep.equal([config])
+    it('should call onUpdate', () => {      
+      expect(handleUpdate).to.have.been.calledWith(configSchema)
     })
 
     it('should not allow duplicate config with identical nodeId & nodeProperty in configList State', () => {

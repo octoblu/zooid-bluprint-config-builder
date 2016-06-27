@@ -57,14 +57,14 @@ describe('<DeviceSelector />', () => {
 
       sut.find(Input).simulate('change', {
         target: {
-          value: 'SomePropertyName'
-        }
+          value: 'SomePropertyName',
+        },
       })
+
       expect(onUpdateHandler).to.have.been.calledWith({
         shareDevice: false,
         uuid: '123456a',
         nodeId: 'node-id-stuff',
-        nodeName: 'My Name',
         deviceType: undefined,
         configProperty: 'SomePropertyName',
       })

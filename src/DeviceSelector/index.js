@@ -10,6 +10,7 @@ const propTypes = {
   nodeName: PropTypes.string.isRequired,
   onUpdate: PropTypes.func,
 }
+
 const defaultProps = {
   onUpdate: _.noop,
 }
@@ -20,52 +21,47 @@ class DeviceSelector extends React.Component {
     super(props)
     this.state = {
       shareExistingDevice: false,
-      configProperty: ''
+      configureProperty: ''
     }
   }
-  componentDidUpdate() {
-    const { shareExistingDevice, configProperty } = this.state
+
+  update = () => {
+    const { shareExistingDevice, configureProperty } = this.state
     const { onUpdate, uuid, nodeId, category, nodeName, type } = this.props
 
     if (category !== 'device') return null
 
     let config = {
-      shareDevice: shareExistingDevice,
-      deviceType: type,
       uuid,
       nodeId,
-      nodeName,
-      configProperty
+      shareDevice: shareExistingDevice,
+      deviceType: type,
+      configureProperty: configureProperty || nodeName
     }
 
     onUpdate(config)
   }
 
   handleShareExistingDeviceToggle = ({ target }) => {
-    this.setState({ shareExistingDevice: target.checked })
+    console.log('handleShareExistingDeviceToggle')
+
+    this.setState({ shareExistingDevice: target.checked }, this.update)
     if(target.checked){
-      this.setState({configProperty: ''})
+      this.setState({configureProperty: ''}, this.update)
     }
+
   }
 
   handleConfigNameChange = ( {target} ) => {
-    this.setState({configProperty: target.value})
+    console.log('handleConfigNameChange')
+    this.setState({configureProperty: target.value || this.props.nodeName}, this.update)
   }
 
   render(){
+    let configName
     const {category} = this.props
-    const { shareExistingDevice, configProperty } = this.state
-    if(category !== 'device') return null
-    let configName =
-    <Input
-      name="configProperty"
-      label="Config Name"
-      value={configProperty}
-      placeholder="Enter the name of your configuration here" onChange={this.handleConfigNameChange}/>
+    const { shareExistingDevice} = this.state
 
-    if(shareExistingDevice) {
-      configName = null
-    }
     return (
       <div>
         <label htmlFor="shareExistingDevice">Share existing device?</label>
@@ -75,8 +71,23 @@ class DeviceSelector extends React.Component {
           checked={shareExistingDevice}
           onChange={this.handleShareExistingDeviceToggle}
         />
-      {configName}
+      {this.getConfigInput()}
       </div>
+    )
+  }
+
+  getConfigInput() {
+    const { shareExistingDevice, configureProperty } = this.state
+    if(shareExistingDevice) return null
+
+    return (
+     <Input
+       name="configureProperty"
+       label="Config Name"
+       value={configureProperty}
+       placeholder="Enter the name of your configuration here" onChange={this.handleConfigNameChange}
+       onChange={this.handleConfigNameChange}
+     />
     )
   }
 }

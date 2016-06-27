@@ -17,6 +17,7 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate, onShareDevice }
   if (_.isEmpty(nodeSchema)) return null
 
   const { category, type, uuid } = node
+
   const onPropertyUpdate = (update) => {
     if (category !== 'device') {
       return onUpdate(update)
@@ -27,10 +28,10 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate, onShareDevice }
     onUpdate(newUpdate)
   }
 
-  return (
-    <div>
-      <div className={styles.nodeName}>{nodeSchema.title || node.name}</div>
+  const renderDeviceSelector = () => {
+    if(category !== 'device') return null
 
+    return (
       <DeviceSelector
         nodeId={node.id}
         category={category}
@@ -39,7 +40,13 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate, onShareDevice }
         nodeName={node.name}
         onUpdate={onShareDevice}
       />
+    )
+  }
 
+  return (
+    <div>
+      <div className={styles.nodeName}>{nodeSchema.title || node.name}</div>
+      {renderDeviceSelector()}
       <BluprintConfigBuilderItemList
         nodeId={node.id}
         schema={nodeSchema}
