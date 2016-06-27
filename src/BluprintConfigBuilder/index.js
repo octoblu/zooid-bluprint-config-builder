@@ -17,9 +17,9 @@ class BluprintConfigBuilder extends React.Component {
     this.handleUpdate = this.handleUpdate.bind(this)
   }
 
-  onShareDevice = ({ shareDevice, nodeId, nodeName }) => {
+  onShareDevice = ({ shareDevice, nodeId, nodeName, deviceType }) => {
     if (shareDevice) return this.shareDevice(nodeId)
-    this.dontShareDevice(nodeId, nodeName)
+    this.dontShareDevice(nodeId, nodeName, deviceType)
   }
 
   shareDevice = (nodeId) => {
@@ -33,7 +33,7 @@ class BluprintConfigBuilder extends React.Component {
     })
   }
 
-  dontShareDevice = (nodeId, name) => {
+  dontShareDevice = (nodeId, name, deviceType) => {
     const { onUpdate } = this.props
 
     let { configList } = this.state
@@ -41,13 +41,35 @@ class BluprintConfigBuilder extends React.Component {
     if (field) return
     configList.push({
       nodeId,
+      deviceType,
       configureProperty: name,
       nodeProperty: 'uuid',
       type: 'string'
     })
+    
     this.setState({ configList }, () => {
       onUpdate(this.state.configList)
     })
+  }
+
+  mappingToConfig(configList) {
+    const config = {
+      type: 'object',
+      properties: {},
+    }
+
+    _.each(configList, function (mapping) {
+      let property = config.properties[mapping.configureProperty]
+      property = property || { type: mapping.type, enum: mapping.enum }
+
+      property.required = mapping.required
+      property.description = mapping.description
+      property['x-node-map'] = property['x-node-map'] || []
+      property['x-node-map'].push({ id: mapping.nodeId, property: mapping.nodeProperty })
+      config.properties[mapping.configureProperty] = property
+    })
+
+    return config
   }
 
   handleUpdate(updatedConfig) {
@@ -68,7 +90,8 @@ class BluprintConfigBuilder extends React.Component {
       this.state.configList[configIndex] = updatedConfig
     }
 
-    onUpdate(this.state.configList)
+    const configSchema = this.mappingToConfig(this.state.configList)
+    onUpdate(configSchema)
   }
 
   getNodeSchema(node) {

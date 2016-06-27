@@ -67,7 +67,7 @@ describe('<BluprintConfigBuilder />', () => {
     })
 
     it('should call onUpdate', () => {
-      expect(handleUpdate).to.have.been.calledWith([config])
+      expect(handleUpdate).to.have.been.called
     })
 
     it('should add config to configList state if it does not exist', () => {

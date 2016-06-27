@@ -65,6 +65,7 @@ describe('<DeviceSelector />', () => {
         uuid: '123456a',
         nodeId: 'node-id-stuff',
         nodeName: 'My Name',
+        deviceType: undefined,
         configProperty: 'SomePropertyName',
       })
     })

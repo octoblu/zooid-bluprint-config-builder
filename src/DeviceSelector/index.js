@@ -25,16 +25,20 @@ class DeviceSelector extends React.Component {
   }
   componentDidUpdate() {
     const { shareExistingDevice, configProperty } = this.state
-    const { onUpdate, uuid, nodeId, category, nodeName } = this.props
+    const { onUpdate, uuid, nodeId, category, nodeName, type } = this.props
 
     if (category !== 'device') return null
-    onUpdate({
+
+    let config = {
       shareDevice: shareExistingDevice,
+      deviceType: type,
       uuid,
       nodeId,
       nodeName,
       configProperty
-    })
+    }
+
+    onUpdate(config)
   }
 
   handleShareExistingDeviceToggle = ({ target }) => {
