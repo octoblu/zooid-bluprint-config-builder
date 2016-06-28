@@ -7,7 +7,6 @@ const propTypes = {
   category: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   uuid: PropTypes.string.isRequired,
-  nodeName: PropTypes.string.isRequired,
   onUpdate: PropTypes.func,
 }
 
@@ -25,42 +24,40 @@ class DeviceSelector extends React.Component {
     }
   }
 
-  update = () => {
-    const { shareExistingDevice, configureProperty } = this.state
-    const { onUpdate, uuid, nodeId, category, nodeName, type } = this.props
+  update = (newState) => {
+    this.setState(newState, ()=> {
+      const { shareExistingDevice, configureProperty } = this.state
+      const { onUpdate, uuid, nodeId, category, type } = this.props
 
-    if (category !== 'device') return null
+      let config = {
+        uuid,
+        nodeId,
+        shareDevice: shareExistingDevice,
+        deviceType: type,
+        configureProperty: configureProperty
+      }
 
-    let config = {
-      uuid,
-      nodeId,
-      shareDevice: shareExistingDevice,
-      deviceType: type,
-      configureProperty: configureProperty || nodeName
-    }
-
-    onUpdate(config)
+      onUpdate(config)
+    })
   }
 
   handleShareExistingDeviceToggle = ({ target }) => {
-    console.log('handleShareExistingDeviceToggle')
-
-    this.setState({ shareExistingDevice: target.checked }, this.update)
-    if(target.checked){
-      this.setState({configureProperty: ''}, this.update)
+    let newState = {shareExistingDevice: target.checked}
+    if(target.checked) {
+      newState.configureProperty = ''
     }
 
+    this.update(newState)
   }
 
   handleConfigNameChange = ( {target} ) => {
-    console.log('handleConfigNameChange')
-    this.setState({configureProperty: target.value || this.props.nodeName}, this.update)
+    this.update({configureProperty: target.value})
   }
 
   render(){
     let configName
     const {category} = this.props
-    const { shareExistingDevice} = this.state
+    const { shareExistingDevice } = this.state
 
     return (
       <div>

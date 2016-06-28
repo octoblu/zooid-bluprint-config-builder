@@ -11,41 +11,42 @@ const propTypes = {
 }
 
 class BluprintConfigBuilder extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { configList: [] }
-    this.handleUpdate = this.handleUpdate.bind(this)
+
+  state = {
+    configList: [],
+    sharedNodes: []
   }
 
   componentDidUpdate() {
     const { onUpdate } = this.props
     const configSchema = this.mappingToConfig(this.state.configList)
+    const {sharedNodes} = this.state
+    const sharedDevices = _.uniq( _.map(sharedNodes, 'uuid') )
 
-    onUpdate(configSchema)
+    onUpdate({configSchema, sharedDevices})
   }
 
   onShareDevice = (options) => {
-
     const {shareDevice, nodeId} = options
-    console.log('onShareDevice', options)
 
-    if (shareDevice) return this.shareDevice(nodeId)
+    if (shareDevice) return this.shareDevice(options)
     this.dontShareDevice(options)
   }
 
-  shareDevice = (nodeId) => {
-    let { configList } = this.state
-    const newConfigList = _.reject(configList, { nodeId, nodeProperty: 'uuid' })
+  shareDevice = ({nodeId, uuid}) => {
+    let { sharedNodes, configList } = this.state
+    configList = _.reject(configList, { nodeId, nodeProperty: 'uuid' })
 
-    if( _.isEqual(newConfigList, configList)) return
-    this.setState({ configList: newConfigList })
+    sharedNodes.push({nodeId, uuid})
+
+    this.setState({ sharedNodes, configList })
   }
 
-  dontShareDevice = (mapping) => {
-    const {nodeId, deviceType, configureProperty} = mapping
-    let { configList } = this.state
+  dontShareDevice = ({nodeId, uuid, deviceType, configureProperty}) => {
+    let { configList, sharedNodes } = this.state
 
-    configList = _.reject(configList, { nodeId, nodeProperty: 'uuid' })
+    configList  = _.reject(configList, { nodeId, nodeProperty: 'uuid' })
+    sharedNodes = _.reject(sharedNodes, {nodeId, uuid})
 
     configList.push({
       nodeId,
@@ -55,11 +56,10 @@ class BluprintConfigBuilder extends React.Component {
       type: 'string'
     })
 
-    if( _.isEqual(configList, this.state.configList)) return
-    this.setState({configList})
+    this.setState({configList, sharedNodes})
   }
 
-  mappingToConfig(configList) {
+  mappingToConfig = (configList) => {
     const config = {
       type: 'object',
       properties: {},
@@ -79,7 +79,7 @@ class BluprintConfigBuilder extends React.Component {
     return config
   }
 
-  handleUpdate(updatedConfig) {
+  handleUpdate = (updatedConfig) => {
     const {nodeId, nodeProperty} = updatedConfig
     let configList = _.reject(this.state.configList, {nodeId, nodeProperty})
     configList.push(updatedConfig)
@@ -88,7 +88,7 @@ class BluprintConfigBuilder extends React.Component {
     this.setState({configList})
   }
 
-  getNodeSchema(node) {
+  getNodeSchema = (node) => {
     const {operationSchemas, deviceSchemas={} } = this.props
     const nodeType = _.last(node.type.split(':'))
 
