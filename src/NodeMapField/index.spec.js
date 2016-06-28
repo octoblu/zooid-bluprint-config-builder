@@ -13,7 +13,7 @@ import NodeMapField from './'
 chai.use(chaiEnzyme())
 chai.use(sinonChai)
 
-describe('<NodeMapField  />', () => {
+xdescribe('<NodeMapField  />', () => {
   describe('when component mounts', () => {
     let sut
     beforeEach(() => {

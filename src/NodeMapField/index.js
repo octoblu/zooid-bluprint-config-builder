@@ -29,39 +29,42 @@ class NodeMapField extends React.Component {
     }
   }
 
-  componentDidUpdate() {
-    const { configName, description, required } = this.state
-    const configureProperty = configName
+  update = (newState) => {
+    this.setState(newState, () =>{
+      const { configName, description, required } = this.state
+      const { nodeId, nodePropertySchema, nodeProperty, onUpdate } = this.props
+      const { type } = nodePropertySchema
 
-    if (_.isEmpty(configureProperty)) return
+      const configureProperty = configName
+      
+      onUpdate({
+        configureProperty,
+        description,
+        nodeId,
+        nodeProperty,
+        required,
+        type,
+      })
 
-    const { nodeId, nodePropertySchema, nodeProperty, onUpdate } = this.props
-    const { type } = nodePropertySchema
-
-    onUpdate({
-      configureProperty,
-      description,
-      nodeId,
-      nodeProperty,
-      required,
-      type,
     })
   }
 
   setConfigNameState = ({ target }) => {
-    this.setState({ configName: target.value })
+    this.update({ configName: target.value })
   }
 
   setDescriptionState = ({ target }) => {
-    this.setState({ description: target.value })
+    this.update({ description: target.value })
   }
 
   setRequiredFieldState = ({ target }) => {
-    this.setState({ required: target.checked })
+    this.update({ required: target.checked })
   }
 
   toggleShowConfigPropertyState = (checked) => {
-    this.setState({ showConfigProperty: checked })
+    if(checked) return this.update({ showConfigProperty: checked })
+
+    return this.update({showConfigProperty: checked, configName: '', description: '', required: false})
   }
 
   render() {
