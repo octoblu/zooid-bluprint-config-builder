@@ -43,22 +43,3 @@ storiesOf('BluprintConfigBuilder', module)
       onShareDevice={ghettoAction('BluprintConfigBuilder:onShareDevice')}
     />
   ))
-
-storiesOf('DeviceSelector', module)
-  .add('Basic', () => (
-    <DeviceSelector
-      category="device"
-      type="device:hue"
-      uuid="some-device-uuid"
-      onUpdate={ghettoAction('DeviceSelector:onUpdate')}
-    />
-  ))
-
-  .add('Not a device', () => (
-    <DeviceSelector
-      category="operation"
-      type="operator:trigger"
-      uuid="some-device-uuid"
-      onUpdate={ghettoAction('DeviceSelector:onUpdate')}
-    />
-  ))

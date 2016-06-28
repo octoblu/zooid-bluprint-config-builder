@@ -8,11 +8,12 @@ import styles from './styles.css'
 const propTypes = {
   node: PropTypes.object,
   nodeSchema: PropTypes.object,
+  shareDevice: PropTypes.bool,
   onUpdate: PropTypes.func,
   onShareDevice: PropTypes.func,
 }
 
-const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate, onShareDevice }) => {
+const BluprintConfigBuilderItem = ({ node, nodeSchema, shareDevice, onUpdate, onShareDevice }) => {
   if (_.isEmpty(node)) return null
   if (_.isEmpty(nodeSchema)) return null
 
@@ -34,10 +35,7 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate, onShareDevice }
     return (
       <DeviceSelector
         nodeId={node.id}
-        category={category}
-        type={type}
-        uuid={uuid}
-        nodeName={node.name}
+        shareDevice={shareDevice}
         onUpdate={onShareDevice}
       />
     )

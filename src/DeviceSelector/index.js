@@ -2,94 +2,58 @@ import React, { PropTypes } from 'react'
 import _ from 'lodash'
 import Input from 'zooid-input'
 
-const propTypes = {
-  nodeId: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  uuid: PropTypes.string.isRequired,
+const DeviceSelectorPropertyName = ({configureProperty, shareDevice, onUpdate}) => {
+  if (shareDevice) return null
+  return (
+    <Input
+      name="configureProperty"
+      label="Config Name"
+      value={configureProperty}
+      placeholder="Enter the config name for this device"
+      onChange={onUpdate}
+    />
+  )
+}
+
+
+DeviceSelectorPropertyName.propTypes = {
+  shareDevice: PropTypes.bool,
+  configureProperty: PropTypes.string,
   onUpdate: PropTypes.func,
 }
 
-const defaultProps = {
+DeviceSelectorPropertyName.defaultProps = {
   onUpdate: _.noop,
 }
 
-class DeviceSelector extends React.Component {
-
-  constructor(props){
-    super(props)
-    this.state = {
-      shareExistingDevice: false,
-      configureProperty: ''
-    }
+const DeviceSelector = ({shareDevice, nodeId, configureProperty, onUpdate}) => {
+    
+  const onConfigPropertyUpdate = (event) => {
+    onUpdate({shareDevice, nodeId, configureProperty: event.target.value})
   }
 
-  update = (newState) => {
-    this.setState(newState, ()=> {
-      const { shareExistingDevice, configureProperty } = this.state
-      const { onUpdate, uuid, nodeId, category, type } = this.props
-
-      let config = {
-        uuid,
-        nodeId,
-        shareDevice: shareExistingDevice,
-        deviceType: type,
-        configureProperty: configureProperty
-      }
-
-      onUpdate(config)
-    })
+  const onShareDeviceUpdate = (event) => {
+    onUpdate({shareDevice: event.target.checked, nodeId, configureProperty})
   }
 
-  handleShareExistingDeviceToggle = ({ target }) => {
-    let newState = {shareExistingDevice: target.checked}
-    if(target.checked) {
-      newState.configureProperty = ''
-    }
-
-    this.update(newState)
-  }
-
-  handleConfigNameChange = ( {target} ) => {
-    this.update({configureProperty: target.value})
-  }
-
-  render(){
-    let configName
-    const {category} = this.props
-    const { shareExistingDevice } = this.state
-
-    return (
-      <div>
-        <label htmlFor="shareExistingDevice">Share existing device?</label>
-        <input
-          type="checkbox"
-          name="shareExistingDevice"
-          checked={shareExistingDevice}
-          onChange={this.handleShareExistingDeviceToggle}
-        />
-      {this.getConfigInput()}
-      </div>
-    )
-  }
-
-  getConfigInput() {
-    const { shareExistingDevice, configureProperty } = this.state
-    if(shareExistingDevice) return null
-
-    return (
-     <Input
-       name="configureProperty"
-       label="Config Name"
-       value={configureProperty}
-       placeholder="Enter the name of your configuration here" onChange={this.handleConfigNameChange}
-       onChange={this.handleConfigNameChange}
-     />
-    )
-  }
+  return (
+    <div>
+      <label htmlFor="shareDevice">Share the device currently in the flow?</label>
+      <input type="checkbox" name="shareDevice" checked={shareDevice} onChange={onShareDeviceUpdate} />
+      <DeviceSelectorPropertyName shareDevice={shareDevice} configureProperty={configureProperty} onUpdate={onConfigPropertyUpdate} />
+    </div>
+  )
 }
 
-DeviceSelector.propTypes = propTypes
-DeviceSelector.defaultProps = defaultProps
+DeviceSelector.propTypes = {
+  nodeId: PropTypes.string.isRequired,
+  shareDevice: PropTypes.bool,
+  configureProperty: PropTypes.string,
+  onUpdate: PropTypes.func,
+}
+
+DeviceSelector.defaultProps = {
+  onUpdate: _.noop,
+}
 
 export default DeviceSelector
