@@ -69,7 +69,7 @@ class BluprintConfigBuilder extends React.Component {
       let property = config.properties[mapping.configureProperty] || {}
       property = _.defaults(property, _.pick(mapping, ['required', 'description', 'type', 'enum']))
 
-      if(mapping.deviceType) property['x-device-type'] = mapping.deviceType
+      if(mapping.deviceType) property['x-meshblu-device-filter'] = {type: mapping.deviceType}
       property['x-node-map'] = property['x-node-map'] || []
       property['x-node-map'].push({ id: mapping.nodeId, property: mapping.nodeProperty })
 
