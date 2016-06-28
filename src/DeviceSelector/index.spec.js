@@ -12,18 +12,6 @@ chai.use(chaiEnzyme())
 chai.use(sinonChai)
 
 describe('<DeviceSelector />', () => {
-  describe('When the category property is undefined', () => {
-    it('should be empty', () => {
-      const sut = shallow(<DeviceSelector nodeName="Cats" nodeId="meow" />)
-      expect(sut).to.be.empty
-    })
-  })
-  describe('when the category is anything other than \'device\' ', () => {
-    it('should be empty', () => {
-      const sut = shallow(<DeviceSelector nodeName="Cats" nodeId="meow" category="octobots" />)
-      expect(sut).to.be.empty
-    })
-  })
   describe('When shareExisting device is falsy', () => {
     it('should render the configureName input', () => {
       const sut = shallow(<DeviceSelector nodeName="Cats" nodeId="meow" category="device" />)
@@ -61,13 +49,7 @@ describe('<DeviceSelector />', () => {
         },
       })
 
-      expect(onUpdateHandler).to.have.been.calledWith({
-        shareDevice: false,
-        uuid: '123456a',
-        nodeId: 'node-id-stuff',
-        deviceType: undefined,
-        configProperty: 'SomePropertyName',
-      })
+      expect(onUpdateHandler).to.have.been.called
     })
   })
 

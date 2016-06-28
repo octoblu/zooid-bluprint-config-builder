@@ -79,8 +79,8 @@ describe('<BluprintConfigBuilder />', () => {
       sut.instance().handleUpdate(config)
     })
 
-    it('should call onUpdate', () => {      
-      expect(handleUpdate).to.have.been.calledWith(configSchema)
+    it('should call onUpdate', () => {
+      expect(handleUpdate).to.have.been.calledWith({configSchema, sharedDevices: []})
     })
 
     it('should not allow duplicate config with identical nodeId & nodeProperty in configList State', () => {
