@@ -65,6 +65,7 @@ describe('<BluprintConfigBuilder />', () => {
         nodeId: 'ff1123a0',
         nodeProperty: 'key',
         type: 'string',
+        enabled: true
       }
 
       handleUpdate = sinon.stub()
@@ -85,7 +86,7 @@ describe('<BluprintConfigBuilder />', () => {
 
     it('should not allow duplicate config with identical nodeId & nodeProperty in configList State', () => {
       expect(sut.state('configList').length).to.equal(1)
-      sut.instance().handleUpdate({ ...config, configureProperty: 'moistness' })
+      sut.instance().handleUpdate({ ...config, configureProperty: 'moistness', enabled: true })
 
       expect(sut.state('configList').length).to.equal(1)
       expect(sut.state('configList')).to.deep.equal([{

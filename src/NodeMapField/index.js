@@ -86,6 +86,7 @@ class NodeMapField extends React.Component {
             label="Config Name"
             value={configName}
             onChange={this.setConfigNameState}
+            required
           />
 
           <div>
