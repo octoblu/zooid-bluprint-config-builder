@@ -90,22 +90,26 @@ class NodeMapField extends React.Component {
           />
 
           <div>
-            <label htmlFor="requiredField">Required</label>
-            <input
-              type="checkbox"
-              name="requiredField"
-              checked={requiredField}
-              onChange={this.setRequiredFieldState}
+            <label htmlFor="description">Description</label>
+            <textarea
+              name="description"
+              value={description}
+              placeholder="description..."
+              onChange={this.setDescriptionState}
             />
           </div>
 
-          <Input
-            name="description"
-            value={description}
-            label="Description"
-            onChange={this.setDescriptionState}
-          />
-
+          <div>
+            <label htmlFor="requiredField">
+              <input
+                type="checkbox"
+                name="requiredField"
+                checked={requiredField}
+                onChange={this.setRequiredFieldState}
+              />
+              Required
+            </label>
+          </div>
         </div>
       )
     }
