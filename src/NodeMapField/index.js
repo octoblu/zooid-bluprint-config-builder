@@ -31,12 +31,13 @@ class NodeMapField extends React.Component {
 
   update = (newState) => {
     this.setState(newState, () =>{
-      const { configName, description, required } = this.state
+      const { configName, description, required, showConfigProperty } = this.state
       const { nodeId, nodePropertySchema, nodeProperty, onUpdate } = this.props
       const { type } = nodePropertySchema
 
-      const configureProperty = configName
-      
+      const configureProperty = configName || nodeProperty
+
+
       onUpdate({
         configureProperty,
         description,
@@ -44,6 +45,7 @@ class NodeMapField extends React.Component {
         nodeProperty,
         required,
         type,
+        enabled: showConfigProperty
       })
 
     })
@@ -63,7 +65,6 @@ class NodeMapField extends React.Component {
 
   toggleShowConfigPropertyState = (checked) => {
     if(checked) return this.update({ showConfigProperty: checked })
-
     return this.update({showConfigProperty: checked, configName: '', description: '', required: false})
   }
 

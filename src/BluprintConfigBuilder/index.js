@@ -89,10 +89,12 @@ class BluprintConfigBuilder extends React.Component {
   }
 
   handleUpdate = (updatedConfig) => {
-    const {nodeId, nodeProperty} = updatedConfig
-    let configList = _.reject(this.state.configList, {nodeId, nodeProperty})
-    configList.push(updatedConfig)
+    const {nodeId, nodeProperty, enabled} = updatedConfig
 
+    delete updatedConfig.enabled
+    let configList = _.reject(this.state.configList, {nodeId, nodeProperty})
+
+    if(enabled) configList.push(updatedConfig)
     this.update({configList})
   }
 
