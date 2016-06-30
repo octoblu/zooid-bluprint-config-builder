@@ -1,8 +1,9 @@
 import _ from 'lodash'
 import React, { PropTypes } from 'react'
-
-import Switch from 'zooid-switch'
+import FormField from 'zooid-form-field'
+import FormLabel from 'zooid-form-label'
 import Input from 'zooid-input'
+import Switch from 'zooid-switch'
 
 import styles from './styles.css'
 
@@ -84,15 +85,15 @@ class NodeMapField extends React.Component {
           <Input
             name="configProperty"
             label="Config Name"
-            helpText="The display name of the configurable property"
+            description="The display name of the configurable property"
             placeholder="Enter the config name"
             value={configName}
             onChange={this.setConfigNameState}
             required
           />
 
-          <div>
-            <label htmlFor="description">Description</label>
+          <FormField>
+            <FormLabel name="description">Description</FormLabel>
             <textarea
               name="description"
               value={description}
@@ -100,10 +101,10 @@ class NodeMapField extends React.Component {
               onChange={this.setDescriptionState}
               className={styles.configDescription}
             />
-          </div>
+          </FormField>
 
-          <div>
-            <label htmlFor="requiredField">
+          <FormField>
+            <FormLabel name="requiredField">
               <input
                 type="checkbox"
                 name="requiredField"
@@ -111,8 +112,8 @@ class NodeMapField extends React.Component {
                 onChange={this.setRequiredFieldState}
               />
               Required
-            </label>
-          </div>
+            </FormLabel>
+          </FormField>
         </div>
       )
     }

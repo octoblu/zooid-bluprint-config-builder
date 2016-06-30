@@ -8,7 +8,7 @@ const DeviceSelectorPropertyName = ({configureProperty, shareDevice, onUpdate}) 
     <Input
       name="configureProperty"
       label="Config Name"
-      helpText="The display name of the configurable property"
+      description="The display name of the configurable property"
       value={configureProperty}
       placeholder="Enter the config name for this device"
       onChange={onUpdate}
