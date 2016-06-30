@@ -110,6 +110,7 @@ class NodeMapField extends React.Component {
                 name="requiredField"
                 checked={requiredField}
                 onChange={this.setRequiredFieldState}
+                className={styles.requiredCheckbox}
               />
               Required
             </FormLabel>

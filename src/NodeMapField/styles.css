@@ -32,3 +32,7 @@
  border: 1px solid #fec57b;
  background-color: #fff9f2;
 }
+
+.requiredCheckbox {
+  margin-right: 0.75em;
+}
