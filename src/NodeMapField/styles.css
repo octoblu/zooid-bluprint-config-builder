@@ -1,3 +1,33 @@
 .configureForm {
   margin-top: 16px;
 }
+
+.configDescription {
+  border-radius: 2px;
+  border: 1px solid #E6EAED;
+  display: block;
+  padding: 0.5em;
+  width: 100%;
+  margin-bottom: 0.25em;
+  font-size: 1em;
+  background: #FFF;
+  -webkit-appearance: none;
+}
+
+.configDescription:focus {
+  border: 1px solid #14568F;
+  outline: none;
+  background-color: #f8fdff;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(19, 133, 229, 0.1);
+  transition: all 0.2s ease-in;
+}
+
+.configDescription[disabled] {
+  background-color: #F3F6F7;
+  cursor: not-allowed;
+}
+
+.configDescription[required]:focus {
+ border: 1px solid #fec57b;
+ background-color: #fff9f2;
+}

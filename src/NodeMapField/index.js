@@ -97,6 +97,7 @@ class NodeMapField extends React.Component {
               value={description}
               placeholder="description..."
               onChange={this.setDescriptionState}
+              className={styles.configDescription}
             />
           </div>
 
