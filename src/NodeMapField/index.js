@@ -83,8 +83,9 @@ class NodeMapField extends React.Component {
         <div className={styles.configureForm}>
           <Input
             name="configProperty"
-            label="Property Name"
-            helpText="The display name of the property"
+            label="Config Name"
+            helpText="The display name of the configurable property"
+            placeholder="Enter the config name"
             value={configName}
             onChange={this.setConfigNameState}
             required
