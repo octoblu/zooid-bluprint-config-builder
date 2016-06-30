@@ -125,7 +125,7 @@ class NodeMapField extends React.Component {
           onChange={this.toggleShowConfigPropertyState}
           label={nodePropertySchema.title || nodeProperty}
         />
-      {configureForm}
+        {configureForm}
       </div>
     )
   }
