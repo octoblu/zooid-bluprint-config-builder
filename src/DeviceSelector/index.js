@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
 import Input from 'zooid-input'
+import FormField from 'zooid-form-field'
+import FormLabel from 'zooid-form-label'
 
 const DeviceSelectorPropertyName = ({configureProperty, shareDevice, onUpdate}) => {
   if (shareDevice) return null
@@ -38,9 +40,23 @@ const DeviceSelector = ({shareDevice, nodeId, configureProperty, onUpdate}) => {
 
   return (
     <div>
-      <label htmlFor="shareDevice">Share the device currently in the flow?</label>
-      <input type="checkbox" name="shareDevice" checked={shareDevice} onChange={onShareDeviceUpdate} />
-      <DeviceSelectorPropertyName shareDevice={shareDevice} configureProperty={configureProperty} onUpdate={onConfigPropertyUpdate} />
+      <FormField>
+        <FormLabel name="shareDevice">
+          <input
+            type="checkbox"
+            name="shareDevice"
+            checked={shareDevice}
+            onChange={onShareDeviceUpdate}
+          />
+          Share the device currently in the flow?
+        </FormLabel>
+      </FormField>
+
+      <DeviceSelectorPropertyName
+        shareDevice={shareDevice}
+        configureProperty={configureProperty}
+        onUpdate={onConfigPropertyUpdate}
+      />
     </div>
   )
 }

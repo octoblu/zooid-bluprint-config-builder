@@ -13,11 +13,19 @@ const propTypes = {
   onShareDevice: PropTypes.func,
 }
 
-const BluprintConfigBuilderItem = ({ node, nodeSchema, shareDevice, onUpdate, onShareDevice }) => {
+const BluprintConfigBuilderItem = (props) => {
+  const {
+    node,
+    nodeSchema,
+    shareDevice,
+    onUpdate,
+    onShareDevice,
+  } = props
+
   if (_.isEmpty(node)) return null
   if (_.isEmpty(nodeSchema)) return null
 
-  const { category, type, uuid } = node
+  const { category } = node
 
   const onPropertyUpdate = (update) => {
     if (category !== 'device') {
@@ -30,7 +38,7 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, shareDevice, onUpdate, on
   }
 
   const renderDeviceSelector = () => {
-    if(category !== 'device') return null
+    if (category !== 'device') return null
 
     return (
       <DeviceSelector
@@ -41,16 +49,22 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, shareDevice, onUpdate, on
     )
   }
 
+  const getHeader = () => {
+    if (category === 'device') return `${node.name} - ${nodeSchema.title}`
+    return nodeSchema.title || node.name
+  }
+
   return (
     <div>
-      <div className={styles.nodeName}>{nodeSchema.title || node.name}</div>
+      <div className={styles.nodeName}>{getHeader()}</div>
+
       {renderDeviceSelector()}
+
       <BluprintConfigBuilderItemList
         nodeId={node.id}
         schema={nodeSchema}
         onUpdate={onPropertyUpdate}
       />
-
     </div>
   )
 }

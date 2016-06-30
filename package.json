@@ -1,6 +1,6 @@
 {
   "name": "zooid-ui-bluprint-config-builder",
-  "version": "6.1.8",
+  "version": "6.1.9",
   "description": "BluprintConfigBuilder",
   "main": "dist/bundle.js",
   "scripts": {
@@ -87,7 +87,7 @@
     "zooid-form-field": "^1.0.3",
     "zooid-form-label": "^1.0.1",
     "zooid-heading": "^1.0.5",
-    "zooid-input": "^2.1.0",
+    "zooid-input": "^2.1.1",
     "zooid-list": "^1.2.0",
     "zooid-switch": "^2.0.0",
     "zooid-ui": "^6.0.0"
