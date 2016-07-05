@@ -2,6 +2,8 @@ import _ from 'lodash'
 import React, { PropTypes } from 'react'
 
 import List, { ListItem } from 'zooid-list'
+import Heading from 'zooid-heading'
+
 import NodeMapField from '../NodeMapField'
 
 const propTypes = {

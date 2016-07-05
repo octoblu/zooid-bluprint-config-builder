@@ -2,6 +2,7 @@ import _ from 'lodash'
 import React, { PropTypes } from 'react'
 
 import BluprintConfigBuilderItem from '../BluprintConfigBuilderItem'
+import BluprintDeviceConfigBuilderItem from '../BluprintDeviceConfigBuilderItem'
 
 const propTypes = {
   nodes: PropTypes.array,
@@ -89,10 +90,12 @@ class BluprintConfigBuilder extends React.Component {
   }
 
   handleUpdate = (updatedConfig) => {
-    const {nodeId, nodeProperty} = updatedConfig
-    let configList = _.reject(this.state.configList, {nodeId, nodeProperty})
-    configList.push(updatedConfig)
+    const {nodeId, nodeProperty, enabled} = updatedConfig
 
+    delete updatedConfig.enabled
+    let configList = _.reject(this.state.configList, {nodeId, nodeProperty})
+
+    if(enabled) configList.push(updatedConfig)
     this.update({configList})
   }
 
@@ -121,8 +124,18 @@ class BluprintConfigBuilder extends React.Component {
     if (_.isEmpty(nodes)) return null
 
     const items = _.map(nodes, (node) => {
+      if (node.category != "device"){
+        return (
+          <BluprintConfigBuilderItem
+            node={node}
+            nodeSchema={this.getNodeSchema(node)}
+            onUpdate={this.handleUpdate}
+            key={node.id}
+          />
+        )
+      }
       return (
-        <BluprintConfigBuilderItem
+        <BluprintDeviceConfigBuilderItem
           node={node}
           nodeSchema={this.getNodeSchema(node)}
           shareDevice={_.includes(sharedNodes, node.id)}

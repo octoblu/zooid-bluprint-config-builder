@@ -1,8 +1,9 @@
 import _ from 'lodash'
 import React, { PropTypes } from 'react'
-
-import Switch from 'zooid-switch'
+import FormField from 'zooid-form-field'
+import FormLabel from 'zooid-form-label'
 import Input from 'zooid-input'
+import Switch from 'zooid-switch'
 
 import styles from './styles.css'
 
@@ -31,11 +32,10 @@ class NodeMapField extends React.Component {
 
   update = (newState) => {
     this.setState(newState, () =>{
-      const { configName, description, required } = this.state
+      const { configName, description, required, showConfigProperty } = this.state
       const { nodeId, nodePropertySchema, nodeProperty, onUpdate } = this.props
       const { type } = nodePropertySchema
-
-      const configureProperty = configName
+      const configureProperty = configName || nodeProperty
 
       onUpdate({
         configureProperty,
@@ -44,6 +44,7 @@ class NodeMapField extends React.Component {
         nodeProperty,
         required,
         type,
+        enabled: showConfigProperty
       })
 
     })
@@ -63,13 +64,12 @@ class NodeMapField extends React.Component {
 
   toggleShowConfigPropertyState = (checked) => {
     if(checked) return this.update({ showConfigProperty: checked })
-
     return this.update({showConfigProperty: checked, configName: '', description: '', required: false})
   }
 
   render() {
     const { nodeId, nodePropertySchema, nodeProperty, configureProperty, description, required } = this.props
-    
+
     let configureForm = null
     if (showConfigProperty) {
       configureForm = (
@@ -77,28 +77,36 @@ class NodeMapField extends React.Component {
           <Input
             name="configProperty"
             label="Config Name"
+            description="The display name of the configurable property"
+            placeholder="Enter the config name"
             value={configName}
             onChange={this.setConfigNameState}
             required
           />
 
-          <div>
-            <label htmlFor="requiredField">Required</label>
-            <input
-              type="checkbox"
-              name="requiredField"
-              checked={requiredField}
-              onChange={this.setRequiredFieldState}
+          <FormField>
+            <FormLabel name="description">Description</FormLabel>
+            <textarea
+              name="description"
+              value={description}
+              placeholder="description..."
+              onChange={this.setDescriptionState}
+              className={styles.configDescription}
             />
-          </div>
+          </FormField>
 
-          <Input
-            name="description"
-            value={description}
-            label="Description"
-            onChange={this.setDescriptionState}
-          />
-
+          <FormField>
+            <FormLabel name="requiredField">
+              <input
+                type="checkbox"
+                name="requiredField"
+                checked={requiredField}
+                onChange={this.setRequiredFieldState}
+                className={styles.requiredCheckbox}
+              />
+              Required
+            </FormLabel>
+          </FormField>
         </div>
       )
     }
@@ -111,7 +119,7 @@ class NodeMapField extends React.Component {
           onChange={this.toggleShowConfigPropertyState}
           label={nodePropertySchema.title || nodeProperty}
         />
-      {configureForm}
+        {configureForm}
       </div>
     )
   }
