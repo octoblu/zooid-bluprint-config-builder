@@ -35,6 +35,7 @@ class NodeMapField extends React.Component {
       const { configName, description, required, showConfigProperty } = this.state
       const { nodeId, nodePropertySchema, nodeProperty, onUpdate } = this.props
       const { type } = nodePropertySchema
+
       const configureProperty = configName || nodeProperty
 
       onUpdate({
@@ -46,7 +47,6 @@ class NodeMapField extends React.Component {
         type,
         enabled: showConfigProperty
       })
-
     })
   }
 
@@ -68,7 +68,13 @@ class NodeMapField extends React.Component {
   }
 
   render() {
-    const { nodeId, nodePropertySchema, nodeProperty, configureProperty, description, required } = this.props
+    const { nodeId, nodePropertySchema, nodeProperty } = this.props
+
+    if (_.isEmpty(nodeId)) return null
+    if (_.isEmpty(nodePropertySchema)) return null
+    if (_.isEmpty(nodeProperty)) return null
+
+    const { configName, description, requiredField, showConfigProperty } = this.state
 
     let configureForm = null
     if (showConfigProperty) {
