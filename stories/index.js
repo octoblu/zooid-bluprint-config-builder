@@ -4,6 +4,8 @@ import { storiesOf } from '@kadira/storybook'
 import BluprintConfigBuilder from '../src'
 import DeviceSelector from '../src/DeviceSelector'
 import sampleFlow from '../test/data/sample-flow.json'
+import composeFlow from '../test/data/compose-flow.json'
+
 import githubSampleFlow from '../test/data/sample-flow-github.json'
 
 import operationSchemas from '../test/data/tool-schema-registry.json'
@@ -24,6 +26,16 @@ storiesOf('BluprintConfigBuilder', module)
       onUpdate={ghettoAction('BluprintConfigBuilder:onUpdate')}
     />
   ))
+
+  .add('Compose Node', () => (
+    <BluprintConfigBuilder
+      nodes={composeFlow.nodes}
+      operationSchemas={operationSchemas}
+      deviceSchemas={deviceSchemas}
+      onUpdate={ghettoAction('BluprintConfigBuilder:onUpdate')}
+    />
+  ))
+
 
   .add('On Device Share', () => (
     <BluprintConfigBuilder
