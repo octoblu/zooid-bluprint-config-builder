@@ -7,9 +7,9 @@ import Input from 'zooid-input'
 import styles from './styles.css'
 
 const propTypes = {
-  nodeId: PropTypes.string,
-  nodePropertySchema: PropTypes.object,
-  nodeProperty: PropTypes.string,
+  nodeId: PropTypes.string.isRequired,
+  nodePropertySchema: PropTypes.object.isRequired,
+  nodeProperty: PropTypes.string.isRequired,
   onUpdate: PropTypes.func,
 }
 
@@ -36,7 +36,7 @@ class NodeMapField extends React.Component {
       const { type } = nodePropertySchema
 
       const configureProperty = configName
-      
+
       onUpdate({
         configureProperty,
         description,
@@ -68,14 +68,8 @@ class NodeMapField extends React.Component {
   }
 
   render() {
-    const { nodeId, nodePropertySchema, nodeProperty } = this.props
-
-    if (_.isEmpty(nodeId)) return null
-    if (_.isEmpty(nodePropertySchema)) return null
-    if (_.isEmpty(nodeProperty)) return null
-
-    const { configName, description, requiredField, showConfigProperty } = this.state
-
+    const { nodeId, nodePropertySchema, nodeProperty, configureProperty, description, required } = this.props
+    
     let configureForm = null
     if (showConfigProperty) {
       configureForm = (
