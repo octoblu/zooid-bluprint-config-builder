@@ -102,7 +102,7 @@ describe('<NodeMapField  />', () => {
         title: 'Alias',
       }
 
-      sut = shallow(
+      sut = mount(
         <NodeMapField
           nodeId="Carter-IV"
           nodePropertySchema={nodePropertySchema}
@@ -118,7 +118,7 @@ describe('<NodeMapField  />', () => {
     })
 
     it('should render requiredField form field', () => {
-      expect(sut.find('label[htmlFor="requiredField"]').length).to.equal(1)
+      expect(sut.find('input[name="requiredField"]').length).to.equal(1)
       expect(sut.find('input[name="requiredField"]').length).to.equal(1)
       expect(sut.find('input[name="requiredField"]')).to.not.be.checked()
     })
@@ -136,7 +136,7 @@ describe('<NodeMapField  />', () => {
     })
 
     it('should update the description state when the description text area changes', () => {
-      const descriptionArea = sut.find(Input).last()
+      const descriptionArea = sut.find('textarea')
       descriptionArea.simulate('change', { target: { value: 'cats' } })
       expect(sut).to.have.state('description').equal('cats')
     })
@@ -184,6 +184,7 @@ describe('<NodeMapField  />', () => {
     let onUpdateHandler = sinon.stub()
 
     beforeEach(() => {
+      console.log('yo', nodeId)
       sut = mount(
         <NodeMapField
           nodeId={nodeId}
@@ -200,7 +201,8 @@ describe('<NodeMapField  />', () => {
     })
 
     it('should call onUpdate on change with correct args', () => {
-      sut.find(Input).first().simulate('change')
+      const descriptionArea = sut.find('textarea')
+      descriptionArea.simulate('change', { target: { value: '' } })
       expect(onUpdateHandler).to.have.been.calledWith({
         configureProperty: 'myPayload',
         nodeId,
@@ -208,6 +210,7 @@ describe('<NodeMapField  />', () => {
         nodeProperty,
         description: '',
         type: 'string',
+        enabled: true
       })
     })
   })
@@ -241,7 +244,8 @@ describe('<NodeMapField  />', () => {
     })
 
     it('should call onUpdate on change with correct args', () => {
-      sut.find(Input).first().simulate('change')
+      const descriptionArea = sut.find('textarea')
+      descriptionArea.simulate('change', { target: { value: 'cats' } })
       expect(onUpdateHandler).to.have.been.calledWith({
         nodeId,
         nodeProperty,
@@ -249,6 +253,7 @@ describe('<NodeMapField  />', () => {
         configureProperty: 'myPayload',
         required: true,
         type: 'string',
+        enabled: true
       })
     })
   })

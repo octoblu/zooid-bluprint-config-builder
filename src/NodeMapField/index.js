@@ -103,7 +103,7 @@ class NodeMapField extends React.Component {
 
           <FormField>
             <FormLabel name="requiredField">
-              <input
+              <Input
                 type="checkbox"
                 name="requiredField"
                 checked={requiredField}
