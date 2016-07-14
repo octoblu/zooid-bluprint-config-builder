@@ -111,7 +111,9 @@ class BluprintConfigBuilder extends React.Component {
     }
 
     if(node.category === 'device' || node.category === 'endo') {
-      return deviceSchemas[nodeType][node.selectedSchemaKey] || emptySchema
+      const key = node.selectedSchemaKey || 0
+      if(deviceSchemas[nodeType]) return deviceSchemas[nodeType][key]
+      return emptySchema
     }
 
     return operationSchemas[nodeType]
@@ -124,7 +126,7 @@ class BluprintConfigBuilder extends React.Component {
     if (_.isEmpty(nodes)) return null
 
     const items = _.map(nodes, (node) => {
-      if (node.category != "device" || node.category != "endo"){
+      if(node.category != "device" && node.category != "endo") {
         return (
           <BluprintConfigBuilderItem
             node={node}

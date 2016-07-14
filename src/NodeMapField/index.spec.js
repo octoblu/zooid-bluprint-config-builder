@@ -184,7 +184,6 @@ describe('<NodeMapField  />', () => {
     let onUpdateHandler = sinon.stub()
 
     beforeEach(() => {
-      console.log('yo', nodeId)
       sut = mount(
         <NodeMapField
           nodeId={nodeId}
