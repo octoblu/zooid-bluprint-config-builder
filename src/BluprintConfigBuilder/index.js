@@ -12,7 +12,6 @@ const propTypes = {
 }
 
 class BluprintConfigBuilder extends React.Component {
-
   state = {
     configList: [],
     sharedNodes: []
@@ -26,7 +25,7 @@ class BluprintConfigBuilder extends React.Component {
 
       const sharedDevices = _(nodes)
         .filter((node) => _.includes(sharedNodes, node.id))
-        .map('uuid')
+        .map(({uuid, eventType='message'}) => ({uuid, eventType}))
         .uniq()
         .value()
 
