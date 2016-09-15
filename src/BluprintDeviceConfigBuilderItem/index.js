@@ -22,6 +22,8 @@ const BluprintDeviceConfigBuilderItem = (props) => {
     onShareDevice,
   } = props
 
+  console.log("DeviceConfigBuilderItem",{node,nodeSchema})
+
   if (_.isEmpty(node)) return null
   if (_.isEmpty(nodeSchema)) return null
 
