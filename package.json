@@ -1,6 +1,6 @@
 {
   "name": "zooid-ui-bluprint-config-builder",
-  "version": "7.1.0",
+  "version": "7.1.1",
   "description": "BluprintConfigBuilder",
   "main": "dist/bundle.js",
   "scripts": {
@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "@kadira/storybook": "^1.36.0",
+    "amdefine": "^1.0.0",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
     "babel-eslint": "^6.1.0",
