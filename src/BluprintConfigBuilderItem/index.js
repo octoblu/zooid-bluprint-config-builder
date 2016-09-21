@@ -17,7 +17,7 @@ const BluprintConfigBuilderItem = ({ node, nodeSchema, onUpdate }) => {
 
   return (
     <div>
-      <div className={styles.nodeName}>{nodeSchema.title || node.name}</div>
+      <div className={styles.nodeName}>{`${node.name} - ${nodeSchema.title}`}</div>
 
       <BluprintConfigBuilderItemList
         nodeId={node.id}
