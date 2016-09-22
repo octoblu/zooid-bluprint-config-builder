@@ -25,7 +25,7 @@ class BluprintConfigBuilder extends React.Component {
 
       const sharedDevices = _(nodes)
         .filter((node) => _.includes(sharedNodes, node.id))
-        .map(({uuid, eventType='message'}) => ({uuid, eventType}))
+        .map(({uuid, eventType='message'}) => ({uuid, eventTypes: [eventType]}))
         .uniq()
         .value()
 
