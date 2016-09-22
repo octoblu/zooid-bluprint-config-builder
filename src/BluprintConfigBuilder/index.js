@@ -7,6 +7,7 @@ import BluprintDeviceConfigBuilderItem from '../BluprintDeviceConfigBuilderItem'
 const propTypes = {
   nodes: PropTypes.array,
   operationSchemas: PropTypes.object,
+  deviceSchemas: PropTypes.object,
   onUpdate: PropTypes.func,
   onShareDevice: PropTypes.func,
 }
@@ -101,6 +102,7 @@ class BluprintConfigBuilder extends React.Component {
   getNodeSchema = (node) => {
     const {operationSchemas, deviceSchemas={} } = this.props
     const nodeType = _.last(node.type.split(':'))
+    const {uuid, eventType='message'} = node
 
     const emptySchema = {
       message: {
@@ -110,11 +112,11 @@ class BluprintConfigBuilder extends React.Component {
     }
 
     if(node.category === 'device' || node.category === 'endo') {
-      const key = node.selectedSchemaKey || 0
-      const schema = deviceSchemas[nodeType]
+      const key = node.selectedSchemaKey || 'default'
+      const schema = deviceSchemas[uuid]
       if(!schema) return emptySchema
-      if(schema.version == '2.0.0' || schema.version == '1.0.0') return schema[key]
-      return schema
+      if(schema.version == '2.0.0' || schema.version == '1.0.0') return schema[eventType][key]
+      return schema[eventType]
     }
 
     return operationSchemas[nodeType]
@@ -127,11 +129,12 @@ class BluprintConfigBuilder extends React.Component {
     if (_.isEmpty(nodes)) return null
 
     const items = _.map(nodes, (node) => {
+      const nodeSchema = this.getNodeSchema(node)      
       if(node.category != "device" && node.category != "endo") {
         return (
           <BluprintConfigBuilderItem
             node={node}
-            nodeSchema={this.getNodeSchema(node)}
+            nodeSchema={nodeSchema}
             onUpdate={this.handleUpdate}
             key={node.id}
           />
