@@ -115,7 +115,7 @@ class BluprintConfigBuilder extends React.Component {
       const schemas = deviceSchemas[uuid]
 
       if (!schemas) return emptySchema
-      if (!schemas.version) return schema[eventType] || emptySchema
+      if (!schemas.version) return schemas[eventType] || emptySchema
 
       let schema = schemas[eventType][node.selectedSchemaKey]
       if (schema) return schema

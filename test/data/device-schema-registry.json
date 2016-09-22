@@ -1,8 +1,11 @@
 {
-  "generic": {
+  "805facce-a857-492f-a4d7-9632d38bddb1": {
+    "message": {
     "example-message-01": {}
+    }
   },
-  "endo-github": {
+  "f478c68c-3107-4f19-b04d-cb1b3f8ec79d": {
+    "message": {
     "ListEventsByUser": {
       "type": "object",
       "title": "List Events by User",
@@ -90,6 +93,7 @@
         "angular": "message.ListReposByUser.angular"
       },
       "x-response-schema": "ListReposByUser"
+    }
     }
   }
 }
