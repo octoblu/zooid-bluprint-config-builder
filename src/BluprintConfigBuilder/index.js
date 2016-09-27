@@ -86,7 +86,12 @@ class BluprintConfigBuilder extends React.Component {
       config.properties[mapping.configureProperty] = property
     })
 
-    return config
+    return {
+      type: 'object',
+      properties: {
+        options: config
+      }
+    }
   }
 
   handleUpdate = (updatedConfig) => {

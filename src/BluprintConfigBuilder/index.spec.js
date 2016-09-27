@@ -48,14 +48,19 @@ describe('<BluprintConfigBuilder />', () => {
     const configSchema = {
       type: 'object',
       properties: {
-        asd: {
-          type: 'string',
-          'x-node-map': [
-            {
-              id: 'ff1123a0',
-              property: 'key',
+        options: {    
+          type: 'object',
+          properties: {
+            asd: {
+              type: 'string',
+              'x-node-map': [
+                {
+                  id: 'ff1123a0',
+                  property: 'key',
+                },
+              ],
             },
-          ],
+          },
         },
       },
     }
